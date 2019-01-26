@@ -5,8 +5,7 @@
 堆的排列形式: 一个节点向下分叉为两个节点
 
 堆中元素的索引排列方式,自左而右,自上而下.
-
-<textarea v-model='arr'></textarea>
+<div class='input'><textarea v-model='arr'></textarea></div>
 
 <div class='preview'>
     <div class='line' v-for='(line, idx) in array' :key='idx'>
@@ -27,7 +26,7 @@ export default {
         array() {
             let arrs
             try {
-                 arrs = heap(this.arr.trim().split(/\s+/))
+                 arrs = heap(this.arr.trim().split(/[\s,\-]+/))
             } catch (e) {
                 arrs = []
             }
@@ -43,11 +42,28 @@ export default {
 }
 </script>
 <style>
+.input,
 .preview{
     max-width: 540px;
-    background: lightgray;
+    background: #f2f2f2;
     padding: .5em;
     border-radius: .5em;
+}
+.input {
+    border: thin dashed #ddd;
+}
+.input::before{
+    content: '请输入:(空格分割)';
+    font-size: .5em;
+    color: silver
+}
+.input textarea {
+    border: none;
+    background: transparent;
+    display: block;
+    width: 100%;
+    line-height: 2em;
+    outline: none;
 }
 .line{
     display: flex;
