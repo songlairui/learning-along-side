@@ -1,6 +1,7 @@
 const path = require('path');
 
 module.exports = (ctx) => ({
+  base: '/learning-along-side/',
   dest: path.resolve(__dirname, '../../dist'),
   theme: '@vuepress/theme-default',
   locales: {
