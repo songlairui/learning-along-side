@@ -17,8 +17,8 @@ sidebar: true
 <div class='preview'>
   <transition-group name="list-complete" tag="div">
     <div v-for="(item, idx) in arrObj" :key="item.key" class="list-complete-item" :class="{blank: item.blank}" :style="{width: `${bitWidth * item.width}%`}">
-        <span v-if='!item.blank && idx > 2' class='connect-line' :style='{transform: `scaleX(${(item.lineScale)})`}'></span>
         <div class='inner'>{{ item.value }}</div>
+        <span v-if='!item.blank && idx > 2' class='connect-line' :style='{transform: `scaleX(${(item.lineScale)})`}' @click='switchWithParent(idx)'></span>
     </div>
   </transition-group>
 </div>
@@ -96,6 +96,9 @@ export default {
         }
     },
     methods: {
+        switchWithParent(idx) {
+           // TODO switchWithParent
+        }
     }
 }
 </script>
@@ -128,8 +131,21 @@ export default {
     width: 100%;
     height: 1em;
     transform-origin: left;
+}
+.connect-line:hover{
+    cursor: pointer
+}
+.connect-line::before{
+    content: '';
+    display: block;
+    position: absolute;
     background: red;
+    width: 100%;
+    height: 100%;
     clip-path: polygon(99% 0, 100% 1%, 1% 100%, 0 99%);
+}
+.connect-line:hover::before{
+    background: blue;
 }
 .blank .inner{
   box-shadow:none;
