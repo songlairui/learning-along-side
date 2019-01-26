@@ -50,7 +50,7 @@
 于是, `getParentIdx = idx => Math.floor((idx - 1) / 2)`, [手动归纳以验证]
 
 <script>
-import { heap } from './utils'
+import { heap, hyphenate } from './utils'
 export default {
     data() {
         return {
@@ -74,6 +74,18 @@ export default {
             return {
                 idx: idx < 0 ? '-':idx
             }
+        },
+        parentNode() {
+            const [a,b] = this.marking
+            return [a-1, this.idxDivideTwo(b)]
+        },
+        leftChildNode() {
+            const [a,b] = this.marking
+            return [a+1, b*2]
+        },
+        rightChildNode() {
+            const [a,b] = this.marking
+            return [a+1, b*2+1]
         }
     },
     methods: {
@@ -83,10 +95,6 @@ export default {
         },
         toggleMark([line, item]) {
             this.marking = [line,item]
-        },
-        itemStyleGentor([idx, i]) {
-            const {marking} = this
-            return {marking: idx === marking[0] && i === marking[1]}
         },
         calcIdx([idx, i]){
             return Math.pow(2, idx) - 1 + i 
@@ -100,6 +108,15 @@ export default {
         t(idx) {
             if(idx < 0) return '无'
             return idx
+        },
+        itemStyleGentor([idx, i]) {
+            const style = {};
+            const vm = this;
+            ['marking', 'parentNode','leftChildNode','rightChildNode'].forEach(key => {
+                const [a, b] = vm[key]
+                style[hyphenate(key)] = a === idx && b === i
+            })
+            return style
         }
     }
 }
@@ -160,5 +177,18 @@ export default {
 }
 .info{
     white-space: pre-wrap
+}
+.parent-node .inner{
+    background: lightgray;
+    color: #fff;
+}
+
+.left-child-node .inner{
+    background: darkgray;
+    color: #fff;
+}
+.right-child-node .inner{
+    background: darkgray;
+    color: #fff;
 }
 </style>

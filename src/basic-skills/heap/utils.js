@@ -13,3 +13,11 @@ export function heap(obj) {
   }
   return pool;
 }
+
+const hyphenateRE = /([^-])([A-Z])/g;
+export const hyphenate = function(str) {
+  return str
+    .replace(hyphenateRE, '$1-$2')
+    .replace(hyphenateRE, '$1-$2')
+    .toLowerCase();
+};
