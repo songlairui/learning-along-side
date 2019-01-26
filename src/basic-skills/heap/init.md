@@ -13,7 +13,7 @@
 
 <div class='preview'>
     <div class='line' v-for='(line, idx) in array' :key='idx'>
-        <div class='item' :class="itemStyleGentor([idx, i])" v-for='(item, i) in line' :key='i' @click='toggleMark([idx, i])'><span class='inner'>{{ item }}</span></div>
+        <div class='item' :class="itemStyleGentor([idx, i])" v-for='(item, i) in line' :key='i' @click='toggleMark([idx, i])'><span class='item-inner'>{{ item }}</span></div>
         <div class='blank' v-if='idx === array.length - 1' :style='calcHolder(idx, line.length)'/>
     </div>
 </div>
@@ -126,7 +126,7 @@ export default {
     }
 }
 </script>
-<style>
+<style scoped>
 .line{
     display: flex;
     justify-content: center;
@@ -140,7 +140,7 @@ export default {
     align-items: center;
     cursor: pointer
 }
-.inner {
+.item-inner {
     display: inline-block;
     text-align: center;
     border-radius: 2px;
@@ -151,24 +151,24 @@ export default {
     outline: thin solid yellowgreen;
 }
 
-.item.marking .inner,
-.item:hover .inner{
+.item.marking .item-inner,
+.item:hover .item-inner{
     background: gray;
     color: #fff;
 }
 .info{
     white-space: pre-wrap
 }
-.parent-node .inner{
+.parent-node .item-inner{
     background: lightgray;
     color: #fff;
 }
 
-.left-child-node .inner{
+.left-child-node .item-inner{
     background: darkgray;
     color: #fff;
 }
-.right-child-node .inner{
+.right-child-node .item-inner{
     background: darkgray;
     color: #fff;
 }

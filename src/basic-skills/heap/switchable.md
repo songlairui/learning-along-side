@@ -1,23 +1,22 @@
----
-sidebar: true
----
+# 堆 - 无序(可对调位置)
 
-# 堆 - 有序
-
-> 以最后一行为
+> 根据上一节结论, 一个堆数据结构的各个参数都是可计算的  
+> 可直接计算的部分, 给了堆数据结构用武之地  
 
 <div class='input'><textarea v-model='arr'></textarea></div>
 
-::: tip
+::: tip 可直接计算的特征
 数组长度: {{ array.length }}  
 堆的高度: {{ height }}  
 单位宽度: {{ bitWidth }} %
+每个节点的 位置, 宽高
 :::
 
 <div class='preview'>
   <transition-group name="list-complete" tag="div">
     <div v-for="(item, idx) in arrObj" :key="item.key" class="list-complete-item" :class="{blank: item.blank}" :style="{width: `${bitWidth * item.width}%`}">
-        <div class='inner'>{{ item.value }}</div>
+        <div class='item-inner'>{{ item.value }}</div>
+        <!-- TODO 通过js创建 span, 设计不变的key, 使得对换位置时,连接线不需要消失 -->
         <span v-if='!item.blank && item.oriIdx > 0' class='connect-line' :style='{transform: `scaleX(${(item.lineScale)})`}' @click='switchWithParent(item.oriIdx)'></span>
     </div>
   </transition-group>
@@ -76,7 +75,7 @@ export default {
                     key,
                     value: str,
                     width: 1,
-                    lineScale: (isLeft ? 1 : -1) * ((intervalLength + 1) / 2),
+                    lineScale: (isLeft ? 1 : -1) * ((intervalLength + .8) / 2),
                     oriIdx: idx
                 },{
                     value: ' ',
@@ -112,9 +111,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .list-complete-item {
-  transition: all 1s;
+  transition: all .4s;
   display: flex;
   min-height: 1.4em;
   height: 1.4em;
@@ -125,7 +124,7 @@ export default {
   padding: .5em 0;
   position: relative
 }
-.inner {
+.item-inner {
   border-radius: 5px;
   box-shadow:inset 0 0 1px #333;
   cursor: pointer;
@@ -159,7 +158,7 @@ export default {
 .connect-line:hover::before{
     background: blue;
 }
-.blank .inner{
+.blank .item-inner{
   box-shadow:none;
   cursor: default;
 }

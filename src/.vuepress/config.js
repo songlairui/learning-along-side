@@ -62,7 +62,7 @@ function getBasicSkillsSidebar(groupA, groupB) {
     {
       title: groupA,
       collapsable: false,
-      children: ['/basic-skills/heap/init', '/basic-skills/heap/calc-ready']
+      children: ['/basic-skills/heap/init', '/basic-skills/heap/switchable']
     },
     {
       title: groupB,
