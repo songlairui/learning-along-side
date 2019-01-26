@@ -21,7 +21,8 @@ module.exports = (ctx) => ({
         lastUpdated: '上次更新',
         nav: require('./nav/zh'),
         sidebar: {
-          '/user-guide/': getUserGuideSidebar('使用指南', '高级功能')
+          '/user-guide/': getUserGuideSidebar('使用指南', '高级功能'),
+          '/basic-skills/': getBasicSkillsSidebar('数据结构', '算法')
         }
       }
     }
@@ -52,6 +53,21 @@ function getUserGuideSidebar(groupA, groupB) {
       title: groupB,
       collapsable: false,
       children: ['clients']
+    }
+  ];
+}
+
+function getBasicSkillsSidebar(groupA, groupB) {
+  return [
+    {
+      title: groupA,
+      collapsable: false,
+      children: ['/basic-skills/heap/init', '/basic-skills/heap/calc-ready']
+    },
+    {
+      title: groupB,
+      collapsable: false,
+      children: ['/basic-skills/']
     }
   ];
 }
