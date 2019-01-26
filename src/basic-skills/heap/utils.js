@@ -21,3 +21,17 @@ export const hyphenate = function(str) {
     .replace(hyphenateRE, '$1-$2')
     .toLowerCase();
 };
+
+export function log2(num) {
+  return Math.log(num) / Math.log(2);
+}
+
+export function lineId(idx) {
+  return Math.ceil(log2(idx + 2)) - 1;
+}
+
+export function idx2ab(idx) {
+  const a = lineId(idx);
+  const b = idx + 1 - Math.pow(2, a);
+  return [a, b];
+}
