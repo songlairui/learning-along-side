@@ -5,11 +5,12 @@
 堆的排列形式: 一个节点向下分叉为两个节点
 
 堆中元素的索引排列方式,自左而右,自上而下.
+
 <div class='input'><textarea v-model='arr'></textarea></div>
 
 <div class='preview'>
     <div class='line' v-for='(line, idx) in array' :key='idx'>
-        <div class='item' v-for='(item, i) in line' :key='i'><span class='inner'>{{ item }}</span></div>
+        <div class='item' :class="{marking: idx === marking[0] && i === marking[1]}" v-for='(item, i) in line' :key='i' @click='toggleMark([idx, i])'><span class='inner'>{{ item }}</span></div>
         <div class='blank' v-if='idx === array.length - 1' :style='calcHolder(idx, line.length)'/>
     </div>
 </div>
@@ -19,7 +20,8 @@ import { heap } from './utils'
 export default {
     data() {
         return {
-            arr: '1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20'
+            arr: '0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20',
+            marking: [-1,-1]
         }
     },
     computed:{
@@ -37,6 +39,9 @@ export default {
         calcHolder(lineIdx, lineLength) {
             const flex = Math.pow(2, lineIdx) - lineLength
             return {flex}
+        },
+        toggleMark([line, item]) {
+            this.marking = [line,item]
         }
     }
 }
@@ -44,6 +49,7 @@ export default {
 <style>
 .input,
 .preview{
+    margin-top: 2em;
     max-width: 540px;
     background: #f2f2f2;
     padding: .5em;
@@ -76,11 +82,22 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer
 }
 .inner {
     display: inline-block;
     text-align: center;
     border-radius: 2px;
-    background: lightcyan
+    background: lightcyan;
+}
+.item.marking,
+.item:hover {
+    outline: thin solid yellowgreen;
+}
+
+.item.marking .inner,
+.item:hover .inner{
+    background: gray;
+    color: #fff;
 }
 </style>
