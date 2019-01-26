@@ -1,9 +1,7 @@
-# 堆
+# 堆 - 无序
 
 > 学习堆的数据结构时, 对于取 idx 的代数式比较迷惑, 遂作此文档页  
 > 演示了, 将数字排列成堆、 由选中节点取父节点、子节点、归纳 idx 规律
-
-## 无序堆
 
 数据结构'堆(heap)'
 
@@ -49,8 +47,15 @@
 排、列索引的变化,相当于(总索引 - 1)/2 再取 floor  
 于是, `getParentIdx = idx => Math.floor((idx - 1) / 2)`, [手动归纳以验证]
 
+## Next
+
+- 堆排序
+- 二叉树
+
 <script>
+import './style.css'
 import { heap, hyphenate } from './utils'
+
 export default {
     data() {
         return {
@@ -122,30 +127,6 @@ export default {
 }
 </script>
 <style>
-.info,
-.input,
-.preview{
-    margin:2em auto;
-    background: #f2f2f2;
-    padding: .5em;
-    border-radius: .5em;
-}
-.input {
-    border: thin dashed #ddd;
-}
-.input::after{
-    content: '请输入:(空格分割)';
-    font-size: .5em;
-    color: silver
-}
-.input textarea {
-    border: none;
-    background: transparent;
-    display: block;
-    width: 100%;
-    line-height: 2em;
-    outline: none;
-}
 .line{
     display: flex;
     justify-content: center;

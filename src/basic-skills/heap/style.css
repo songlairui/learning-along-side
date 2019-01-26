@@ -1,0 +1,25 @@
+.info,
+.input,
+.preview {
+  margin: 2em auto;
+  background: #f2f2f2;
+  padding: 0.5em;
+  border-radius: 0.5em;
+}
+
+.input {
+  border: thin dashed #ddd;
+}
+.input::after {
+  content: '请输入:(空格分割)';
+  font-size: 0.5em;
+  color: silver;
+}
+.input textarea {
+  border: none;
+  background: transparent;
+  display: block;
+  width: 100%;
+  line-height: 2em;
+  outline: none;
+}
