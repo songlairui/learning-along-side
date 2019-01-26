@@ -10,13 +10,14 @@ sidebar: true
 
 ::: tip
 数组长度: {{ array.length }}  
- 堆的高度: {{ height }}  
- 单位宽度: {{ bitWidth }}
+堆的高度: {{ height }}  
+单位宽度: {{ bitWidth }} %
 :::
 
 <div class='preview'>
   <transition-group name="list-complete" tag="div">
-    <div v-for="(item) in arrObj" :key="item.key" class="list-complete-item" :class="{blank: item.blank}" :style="{width: `${bitWidth * item.width}%`}">
+    <div v-for="(item, idx) in arrObj" :key="item.key" class="list-complete-item" :class="{blank: item.blank}" :style="{width: `${bitWidth * item.width}%`}">
+        <span v-if='!item.blank && idx > 2' class='connect-line' :style='{transform: `scaleX(${(item.lineScale)})`}'></span>
         <div class='inner'>{{ item.value }}</div>
     </div>
   </transition-group>
@@ -69,11 +70,13 @@ export default {
                 const siderLength = intervalLength / 2
                 const isFirst = b === 0
                 const isLast = idx2ab(idx + 1)[1] === 0
+                const isLeft = b % 2 === 0
 
                 const item = [{
                     key,
                     value: str,
                     width: 1,
+                    lineScale: (isLeft ? 1 : -1) * ((intervalLength + 1) / 2)
                 },{
                     value: ' ',
                     key: `${idx}-r`,
@@ -108,13 +111,25 @@ export default {
   justify-content: center;
   align-items: center;
   padding: .5em 0;
+  position: relative
 }
-.list-complete-item .inner {
+.inner {
   border-radius: 5px;
   box-shadow:inset 0 0 1px #333;
   cursor: pointer;
   min-width: 1.5em;
   text-align: center;
+  position: relative
+}
+.connect-line{
+    position: absolute;
+    left: 50%;
+    top: -.5em;
+    width: 100%;
+    height: 1em;
+    transform-origin: left;
+    background: red;
+    clip-path: polygon(99% 0, 100% 1%, 1% 100%, 0 99%);
 }
 .blank .inner{
   box-shadow:none;
