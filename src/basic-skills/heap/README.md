@@ -1,5 +1,10 @@
 # 堆
 
+> 学习堆的数据结构时, 对于取 idx 的代数式比较迷惑, 遂作此文档页  
+> 演示了, 将数字排列成堆、 由选中节点取父节点、子节点、归纳 idx 规律
+
+## 无序堆
+
 数据结构'堆(heap)'
 
 堆的排列形式: 一个节点向下分叉为两个节点
@@ -10,10 +15,39 @@
 
 <div class='preview'>
     <div class='line' v-for='(line, idx) in array' :key='idx'>
-        <div class='item' :class="{marking: idx === marking[0] && i === marking[1]}" v-for='(item, i) in line' :key='i' @click='toggleMark([idx, i])'><span class='inner'>{{ item }}</span></div>
+        <div class='item' :class="itemStyleGentor([idx, i])" v-for='(item, i) in line' :key='i' @click='toggleMark([idx, i])'><span class='inner'>{{ item }}</span></div>
         <div class='blank' v-if='idx === array.length - 1' :style='calcHolder(idx, line.length)'/>
     </div>
 </div>
+
+| -         |       排(索引)        |                         列(索引) |                                               总(索引) |
+| --------- | :-------------------: | -------------------------------: | -----------------------------------------------------: |
+| 当前选中  |  {{ t(marking[0]) }}  |              {{ t(marking[1]) }} |                                 {{ calcIdx(marking) }} |
+|           |                       |                                  |              calcIdx([{{marking[0]}}, {{marking[1]}}]) |
+| 父节点    | {{ t(marking[0]-1) }} | {{ t(idxDivideTwo(marking[1]))}} | {{ calcIdx([marking[0]-1,idxDivideTwo(marking[1])]) }} |
+|           |    [选中索引] - 1     |         idxDivideTwo([选中索引]) |                                      calcIdx([排, 列]) |
+| 子节点-左 |   {{ marking[0]+1}}   |             {{ marking[1] * 2 }} |           {{ calcIdx([marking[0]+1,marking[1] * 2]) }} |
+|           |    [选中索引] + 1     |                  [选中索引] \* 2 |                                      calcIdx([排, 列]) |
+| 子节点-右 |  {{ marking[0]+1 }}   |          {{ marking[1] * 2 + 1}} |         {{ calcIdx([marking[0]+1,marking[1] * 2]) +1}} |
+|           |    [选中索引] + 1     |                 [选中索引] \*2+1 |                                      calcIdx([排, 列]) |
+
+::: tip
+表格中用到的方法  
+根据位置计算总索引: calcIdx = ([a,b]) => Math.pow(2, a) - 1 + b  
+计算父级节点在排内索引: idxDivideTwo = idx => Math.floor(idx / 2)  
+计算父级节点在排内索引(方式 2): idxDivideTwo2 = idx =>Math.ceil((idx - 1) / 2)
+:::
+
+## 继续观察
+
+由选中节点到子节点, 排索引 + 1, 相当于总索引 乘 2 加 1  
+所以, 由选中节点求子节点索引, 排、列索引的变化,相当于总索引 x 2 + 1  
+即: `getLeftChildIdx = idx => idx * 2 + 1`  
+于是, `getRightChildIdx = idx => getLeftChildIdx(idx) + 1`
+
+同理, 由选中节点到父节点, 排索引 - 1, 相当于总索引 减 1 ,再除以 2, 列索引 除以 2 取 floor  
+排、列索引的变化,相当于(总索引 - 1)/2 再取 floor  
+于是, `getParentIdx = idx => Math.floor((idx - 1) / 2)`, [手动归纳以验证]
 
 <script>
 import { heap } from './utils'
@@ -33,6 +67,13 @@ export default {
                 arrs = []
             }
             return arrs
+        },
+        current() {
+            const [a,b] = this.marking
+            const idx = Math.pow(2, a) + b - 1
+            return {
+                idx: idx < 0 ? '-':idx
+            }
         }
     },
     methods: {
@@ -42,15 +83,32 @@ export default {
         },
         toggleMark([line, item]) {
             this.marking = [line,item]
+        },
+        itemStyleGentor([idx, i]) {
+            const {marking} = this
+            return {marking: idx === marking[0] && i === marking[1]}
+        },
+        calcIdx([idx, i]){
+            return Math.pow(2, idx) - 1 + i 
+        },
+        idxDivideTwo(idx) {
+            return Math.floor(idx / 2)
+        },
+        idxDivideTwo2(idx) {
+            return Math.ceil((idx - 1) / 2)
+        },
+        t(idx) {
+            if(idx < 0) return '无'
+            return idx
         }
     }
 }
 </script>
 <style>
+.info,
 .input,
 .preview{
-    margin-top: 2em;
-    max-width: 540px;
+    margin:2em auto;
     background: #f2f2f2;
     padding: .5em;
     border-radius: .5em;
@@ -58,7 +116,7 @@ export default {
 .input {
     border: thin dashed #ddd;
 }
-.input::before{
+.input::after{
     content: '请输入:(空格分割)';
     font-size: .5em;
     color: silver
@@ -99,5 +157,8 @@ export default {
 .item:hover .inner{
     background: gray;
     color: #fff;
+}
+.info{
+    white-space: pre-wrap
 }
 </style>
