@@ -35,3 +35,7 @@ export function idx2ab(idx) {
   const b = idx + 1 - Math.pow(2, a);
   return [a, b];
 }
+
+export function getParentId(idx) {
+  return Math.floor((idx - 1) / 2)
+}

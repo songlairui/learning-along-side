@@ -18,7 +18,7 @@ sidebar: true
   <transition-group name="list-complete" tag="div">
     <div v-for="(item, idx) in arrObj" :key="item.key" class="list-complete-item" :class="{blank: item.blank}" :style="{width: `${bitWidth * item.width}%`}">
         <div class='inner'>{{ item.value }}</div>
-        <span v-if='!item.blank && idx > 2' class='connect-line' :style='{transform: `scaleX(${(item.lineScale)})`}' @click='switchWithParent(idx)'></span>
+        <span v-if='!item.blank && item.oriIdx > 0' class='connect-line' :style='{transform: `scaleX(${(item.lineScale)})`}' @click='switchWithParent(item.oriIdx)'></span>
     </div>
   </transition-group>
 </div>
@@ -27,7 +27,7 @@ sidebar: true
 
 <script>
 import './style.css'
-import { heap, hyphenate, log2, lineId, idx2ab } from './utils'
+import { heap, hyphenate, log2, lineId, idx2ab, getParentId } from './utils'
 
 export default {
     name: 'ordered',
@@ -76,7 +76,8 @@ export default {
                     key,
                     value: str,
                     width: 1,
-                    lineScale: (isLeft ? 1 : -1) * ((intervalLength + 1) / 2)
+                    lineScale: (isLeft ? 1 : -1) * ((intervalLength + 1) / 2),
+                    oriIdx: idx
                 },{
                     value: ' ',
                     key: `${idx}-r`,
@@ -97,7 +98,15 @@ export default {
     },
     methods: {
         switchWithParent(idx) {
-           // TODO switchWithParent
+            const parentId = getParentId(idx)
+            const newArray = [...this.array]
+            const a = newArray[parentId]
+            const b = newArray[idx]
+            newArray[parentId] = b
+            newArray[idx] = a
+            this.$nextTick(() => {
+                this.arr = newArray.join(' ')
+            })
         }
     }
 }
@@ -123,6 +132,9 @@ export default {
   min-width: 1.5em;
   text-align: center;
   position: relative
+}
+.list-complete-move .connect-line{
+    display: none;
 }
 .connect-line{
     position: absolute;
