@@ -70,7 +70,9 @@ function getBasicSkillsSidebar() {
         '/basic-skills/heap/init',
         '/basic-skills/heap/animated',
         '/basic-skills/heap/sort',
-        '/basic-skills/heap/sort-animated'
+        '/basic-skills/heap/sort-animated',
+        '/basic-skills/heap/divider',
+        '/basic-skills/heap/binomial'
       ]
     },
     {
