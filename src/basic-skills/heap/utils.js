@@ -37,5 +37,9 @@ export function idx2ab(idx) {
 }
 
 export function getParentId(idx) {
-  return Math.floor((idx - 1) / 2)
+  return Math.floor((idx - 1) / 2);
+}
+
+export function getChildIds(idx) {
+  return [1, 2].map((i) => idx * 2 + i);
 }
