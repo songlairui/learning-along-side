@@ -5,7 +5,7 @@
     <template v-for="(items, idx) in arrObj">
         <template v-for='item in items'>
             <div :key='item.key' class="list-complete-item" :class="item.type" :style="{width: `${bitWidth * item.width}%`}">
-                <div :key='item.valKey' class='item-inner'>{{ item.value }}</div>
+                <div :key='item.valKey' class='item-inner' :class="{fixed: idx >= fixedAfter}">{{ item.value }}</div>
                 <div class="connect-line" v-if='idx > 0 && item.lineScale' :style='{transform: `scaleX(${(item.lineScale)})`}' @click='switchWithParent(idx)'></div>
             </div>
         </template>
@@ -13,17 +13,33 @@
   </transition-group>
 </div>
 
+只在未变色范围内调整堆顺序
+变色项为排序完成项
+
+{{ array }}
+
+<div>
+    <button :disabled='loading.sort' @click='resetData'>Reset</button>
+    <button :disabled='loading.sort' @click='sort'>Sort</button>
+</div>
+
 <script>
 import './style.css'
 import { heap, hyphenate, log2, lineId, idx2ab, getParentId, getChildIds } from './utils'
 import { genShuffled } from './CONSTANTS'
 
+const wait = (timeout = 210) => new Promise(r => setTimeout(r, timeout))
+
 export default {
     name: 'ani-heap-sort',
     data() {
         return {
-            array: [],
-            arrObj: []
+            arrObj: [],
+            fixedAfter: Infinity,
+            loading: {
+                sort: false,
+                reset: false
+            }
         }
     },
     computed: {
@@ -34,6 +50,9 @@ export default {
         bitWidth() {
             if (this.arrObj.length === 0) return '-'
             return Math.floor(100000 / Math.pow(2, this.height - 1)) / 1000
+        },
+        array() {
+            return this.arrObj.map(items => +(items.find(item => item.type === 'value').value))
         }
     },
     methods: {
@@ -43,10 +62,8 @@ export default {
         switchAB(i1, i2) {
             const [a, b] = [i1, i2].map(i => this.arrObj[i].find(item => item.type==='value'));
             const [newB, newA] = [a,b].map(({key, value})=>({key, value}))
-            console.info('a,b', JSON.stringify(a))
             Object.assign(a, newA)
             Object.assign(b, newB)
-            console.info('a,b', JSON.stringify(a))
         },
         switchWithParent(idx) {
             const parentId = getParentId(idx)
@@ -92,6 +109,35 @@ export default {
                 }
                 return item
             })
+        },
+        async maxHeapify(start, end) {
+            const dad = start
+            let son = dad * 2 + 1
+            if (son >= end) return
+            const [left, right] = [son, son+1].map(i => this.array[i])
+            if (son + 1 < end && left < right) {
+                son += 1
+            }
+            const [a, b] = [dad, son].map(i => this.array[i])
+            if (a <= b) {
+                await this.switchAB(dad, son)
+                await wait()
+    			await this.maxHeapify(son, end);
+            }
+        },
+        async sort() {
+            this.loading.sort = true
+            const length = this.arrObj.length
+            for (let i = Math.floor(length / 2) - 1; i >= 0 ; i--) {
+                await this.maxHeapify(i, length)
+            }
+            for (let i = length - 1; i > 0; i--) {
+                await this.switchAB(0, i)
+                this.fixedAfter = i
+                await wait()
+    			await this.maxHeapify(0, i);
+            }
+            this.loading.sort = false
         }
     },
     mounted() {
@@ -106,7 +152,7 @@ export default {
     top: 60px;
 }
 .list-complete-item {
-  transition: all .4s;
+  transition: all .2s;
   display: flex;
   min-height: 1.4em;
   height: 1.4em;
@@ -130,9 +176,9 @@ export default {
 }
 .connect-line{
     position: absolute;
-    left: -.8em;
+    left: -1em;
     top: -.5em;
-    width: 1.7em;
+    width: 1em;
     height: 1em;
     transform-origin: left;
 }
@@ -166,5 +212,10 @@ export default {
 }
 .preview > div{
     overflow: hidden
+}
+
+.fixed {
+    background: maroon;
+    color: #fff
 }
 </style>
