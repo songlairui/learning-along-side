@@ -57,15 +57,21 @@ function getUserGuideSidebar(groupA, groupB) {
   ];
 }
 
-function getBasicSkillsSidebar(groupA, groupB) {
+function getBasicSkillsSidebar() {
   return [
     {
-      title: groupA,
-      collapsable: false,
-      children: ['/basic-skills/heap/init', '/basic-skills/heap/animated']
+      title: '堆',
+      collapsable: true,
+      children: [
+        '/basic-skills/heap/',
+        '/basic-skills/heap/init',
+        '/basic-skills/heap/animated',
+        '/basic-skills/heap/sort',
+        '/basic-skills/heap/sort-animated'
+      ]
     },
     {
-      title: groupB,
+      title: '-',
       collapsable: false,
       children: ['/basic-skills/']
     }

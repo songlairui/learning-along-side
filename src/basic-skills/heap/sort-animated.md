@@ -1,4 +1,4 @@
-# Js HeapSort 动画
+# 堆 - 排序 (动画)
 
 <div class='preview'>
   <transition-group name="list-complete" tag="div">
@@ -140,6 +140,7 @@ export default {
             }
         },
         async sort() {
+            this.fixedAfter = Infinity
             this.loading.sort = true
             const length = this.arrObj.length
             for (let i = Math.floor(length / 2) - 1; i >= 0 ; i--) {
