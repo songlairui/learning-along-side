@@ -1,4 +1,4 @@
-# 堆 - 排序 (动画)
+# 排序 (动画)
 
 <div class='preview'>
   <transition-group name="list-complete" tag="div">

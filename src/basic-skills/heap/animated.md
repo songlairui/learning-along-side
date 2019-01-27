@@ -1,13 +1,11 @@
-# 堆 - 最小堆 (动画)
+# 最小堆 (动画)
 
 > 根据上一节结论, 一个堆数据结构的各个参数都是可计算的  
 > 可直接计算的部分, 支撑了动画效果实现
 
-## 对换位置 (过渡动画)
+## Play Ground
 
-> 点击连接线,对换两节点位置
-
-{{ arr }}
+> 点击连接线,对换两节点位置 (+过渡动画)
 
 <div class='preview'>
   <transition-group name="list-complete" tag="div">
@@ -18,6 +16,8 @@
     </div>
   </transition-group>
 </div>
+
+{{ arr }}
 
 ::: tip 可直接计算的特征
 数组长度: {{ array.length }}  
