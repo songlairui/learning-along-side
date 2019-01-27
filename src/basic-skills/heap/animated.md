@@ -1,13 +1,13 @@
-# 堆 - ADVANCE
-
-## 添加对换位置过渡动画
+# 堆 - 最小堆 (动画)
 
 > 根据上一节结论, 一个堆数据结构的各个参数都是可计算的  
-> 可直接计算的部分, 给了堆数据结构用武之地
+> 可直接计算的部分, 支撑了动画效果实现
 
-<div class='input'><textarea v-model='arr'></textarea></div>
+## 对换位置 (过渡动画)
 
 > 点击连接线,对换两节点位置
+
+{{ arr }}
 
 <div class='preview'>
   <transition-group name="list-complete" tag="div">
@@ -28,10 +28,9 @@
 
 <!-- <span v-for="i in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,21,34,55]" :key='i'>{{ lineId(i) }}</span> -->
 
-## 操作 (最小堆)
+## 添加元素
 
-::: tip 添加元素
-在末尾添加一个值为 length 的元素  
+::: tip 在末尾添加一个值为 length 的元素  
 跟随一个 up 操作, 保证此添加的元素到达正常的位置
 :::
 
@@ -40,8 +39,8 @@
     <button @click='addNext(toAdd)'> 添加元素 </button>
 </div>
 
-::: warning 打乱数组
-将输入的数组打乱(设置为一个固定的打乱的数组)  
+## 打乱数组
+::: warning 将输入的数组打乱(设置为一个固定的打乱的数组)  
 打乱之后, 不符合最小堆顺序.  
 此时执行添加/删除/取出操作, 不能保证得到的堆顺序正确.  
 需点一下 对比 按钮,以调整顺序, 再进行操作
@@ -54,7 +53,9 @@
     <button @click='compareAll' :disabled='loading.compareAll'> 对比所有节点 </button>
 </div>
 
-::: tip 取出头部节点
+## 取出头部节点
+
+::: tip
 将头部节点取出, 然后将数组末位项放置到头部节点. 然后对新的头部节点进行 `down()` 操作
 :::
 
@@ -62,7 +63,9 @@
     <button @click='poll' :disabled='loading.poll'> 取出头部节点 </button>
 </div>
 
-::: tip 删除指定元素
+## 删除指定元素
+
+::: tip 
 - 查找所有要删除元素的索引 `{{ find(toRemove) }}`
 :::
 
