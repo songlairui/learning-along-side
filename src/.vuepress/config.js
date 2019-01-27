@@ -6,6 +6,7 @@ module.exports = (ctx) => ({
   theme: '@vuepress/theme-default',
   locales: {
     '/': {
+      editLinkText: '在 GitHub 上编辑此页',
       lang: 'zh-CN',
       title: '学习纪录',
       description: 'Trace'
@@ -13,11 +14,13 @@ module.exports = (ctx) => ({
   },
   head: [['meta', { name: 'theme-color', content: '#3eaf7c' }]],
   themeConfig: {
+    repo: 'songlairui/learning-along-side',
+    editLinks: true,
     locales: {
       '/': {
         label: '简体中文',
         selectText: '选择语言',
-        editLinkText: '在 GitLab 上编辑此页',
+        editLinkText: '在 GitHub 上编辑此页',
         lastUpdated: '上次更新',
         nav: require('./nav/zh'),
         sidebar: {
