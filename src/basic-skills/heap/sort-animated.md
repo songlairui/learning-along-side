@@ -23,6 +23,12 @@
     <button :disabled='loading.sort' @click='sort'>Sort</button>
 </div>
 
+<div class='columns'>
+    <transition-group name="column" tag="div">
+        <div v-for='item in arrayCol' :key='item.key' class='col-item column-item' :style='`height:${item.height}%`'>{{item.value}}</div>
+    </transition-group>
+</div>
+
 <script>
 import './style.css'
 import { heap, hyphenate, log2, lineId, idx2ab, getParentId, getChildIds } from './utils'
@@ -53,6 +59,14 @@ export default {
         },
         array() {
             return this.arrObj.map(items => +(items.find(item => item.type === 'value').value))
+        },
+        arrayCol() {
+            const maxVal = Math.max(...this.array)
+            return this.arrObj.map(items => {
+                const item = items.find(item => item.type === 'value')
+                const { value, key } = item
+                return { key, value, height:Math.round(100 * value / maxVal) }
+            })
         }
     },
     methods: {
@@ -217,5 +231,30 @@ export default {
 .fixed {
     background: maroon;
     color: #fff
+}
+.columns > div {
+    display: flex;
+    height: 20vh;
+    align-items: flex-end;
+}
+.col-item {
+    flex: 1;
+    background: skyblue;
+    outline: 2px solid #fff;
+    outline-offset: -2px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    color: yellow;
+    text-shadow: 0 0 2px #000;
+}
+.column-item {
+  transition: all .2s;
+}
+.column-enter, .column-leave-to {
+  opacity: 0;
+}
+.column-leave-active {
+  position: absolute;
 }
 </style>
