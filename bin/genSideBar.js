@@ -24,7 +24,7 @@ function grabMdFileMeta(file, dir, depth) {
     .map((line) => line.trim())
     .filter((line) => line);
   const title =
-    (raw[0] || raw[1])
+    (raw[0] || raw[1] || '')
       .trim()
       .replace(/^#/, '')
       .trim() || file;
@@ -72,11 +72,19 @@ function grabDir(dir = targetFolder, parent = '', depth = 0) {
   });
 }
 
-grabDir();
+function genMeta() {
+  AllMeta.length = 0;
+  grabDir();
+  return AllMeta;
+}
 
-console.info(
-  'AllMeta \n',
-  AllMeta.slice(1)
-    .map((item) => item.text)
-    .join('\n')
-);
+module.exports = { genMeta };
+
+// grabDir();
+
+// console.info(
+//   'AllMeta \n',
+//   AllMeta.slice(1)
+//     .map((item) => item.text)
+//     .join('\n')
+// );

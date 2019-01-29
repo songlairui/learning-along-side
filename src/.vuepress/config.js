@@ -8,7 +8,7 @@ module.exports = (ctx) => ({
     '/': {
       editLinkText: '在 GitHub 上编辑此页',
       lang: 'zh-CN',
-      title: '学习纪录',
+      title: '学习记录',
       description: 'Trace'
     }
   },
