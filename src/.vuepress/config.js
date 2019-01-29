@@ -63,8 +63,15 @@ function getUserGuideSidebar(groupA, groupB) {
 function getBasicSkillsSidebar() {
   return [
     {
+      title: '栈',
+      children: ['/basic-skills/stack/', '/basic-skills/stack/min-stack']
+    },
+    {
+      title: '队列',
+      children: ['/basic-skills/queue/', '/basic-skills/queue/priority-queue']
+    },
+    {
       title: '堆',
-      collapsable: true,
       children: [
         '/basic-skills/heap/',
         '/basic-skills/heap/init',
@@ -76,9 +83,12 @@ function getBasicSkillsSidebar() {
       ]
     },
     {
-      title: '-',
-      collapsable: false,
-      children: ['/basic-skills/']
+      title: '树',
+      children: [
+        '/basic-skills/tree/',
+        '/basic-skills/tree/bst.md',
+        '/basic-skills/tree/avl.md'
+      ]
     }
   ];
 }

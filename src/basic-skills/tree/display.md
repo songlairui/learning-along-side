@@ -21,7 +21,7 @@ export default {
         return {
             elements: [4,2,6,3,5,1,7,0,8,4,2,3,5,6,6,3,2,3,4,53],
             nextNum: 9,
-            width: 500
+            width: 10
         }
     },
     computed: {
@@ -43,7 +43,7 @@ export default {
         reWidth() {
             setTimeout(() => {
                 const $el = this.$refs.display
-                this.width = $el.scrollWidth
+                this.width = $el.scrollWidth + 5
             }, 20)
         }
     },
@@ -52,15 +52,13 @@ export default {
             await new Promise(r => setTimeout(r, 13))
             this.insert(this.elements.shift())
         }
+        this.reWidth()
     }
 }
 </script>
 <style>
 .display-wrapper {
     overflow: auto
-}
-.display {
-    min-width: 100%;
 }
 .blank-wrapper {
     display: flex;
