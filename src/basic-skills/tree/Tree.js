@@ -1,5 +1,7 @@
 import Vue from 'vue';
+
 const TreeNode = Vue.component('TreeNode');
+const wait = (timeout = 20) => new Promise((r) => setTimeout(r, timeout));
 
 const Tree = {
   name: 'Tree',
@@ -18,12 +20,11 @@ const Tree = {
       return this.left !== null || this.right !== null;
     },
     childNodes() {
-      const h = this.$createElement;
       return ['left', 'right'].map((slot) => {
         if (this[slot] === null) {
           return this.genHolder(slot);
         }
-        return h(Tree, { slot, ref: slot, props: { as: slot } });
+        return <tree slot={slot} ref={slot} as={slot} />;
       });
     }
   },
@@ -34,38 +35,30 @@ const Tree = {
   methods: {
     genHolder(slot) {
       return (
-        this.holderBlank &&
-        h('div', { slot, class: 'blank-wrapper' }, [
-          h('div', { class: 'blank' }, '.')
-        ])
+        this.holderBlank && (
+          <div slot={slot} class="blank-wrapper">
+            <div class="blank">.</div>
+          </div>
+        )
       );
     },
-    insert(val) {
+    async insert(val) {
       if (this.value === null) {
+        console.info(`${val} [OK]`);
         this.value = val;
         return;
       }
-      if (+val < +this.value) {
-        this.setLeft(val);
-        return;
-      }
-      this.setRight(val);
+      const leftOrRight = +val < +this.value ? 'left' : 'right';
+      await this.setLeftOrRight(leftOrRight, val);
     },
-    setLeft(val) {
-      if (this.left === null) {
-        this.left = val;
+    async setLeftOrRight(leftOrRight, val) {
+      console.group('-->', leftOrRight);
+      if (this[leftOrRight] === null) {
+        this[leftOrRight] = val;
       }
-      this.$nextTick(() => {
-        this.$refs.left.insert(val);
-      });
-    },
-    setRight(val) {
-      if (!this.right) {
-        this.right = val;
-      }
-      this.$nextTick(() => {
-        this.$refs.right.insert(val);
-      });
+      await wait(1);
+      await this.$refs[leftOrRight].insert(val);
+      console.groupEnd();
     }
   }
 };

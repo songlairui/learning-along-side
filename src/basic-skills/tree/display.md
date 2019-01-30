@@ -9,7 +9,9 @@
 
 <div class='display-wrapper'>
     <div class='display' ref='display' :style='displayStyle'>
-        <tree ref='tree'></tree>
+        <div style='display:flex'>
+            <tree ref='tree'></tree>
+        </div>
     </div>
 </div>
 
@@ -18,6 +20,8 @@
 <script>
 import Vue from 'vue'
 import Tree from './Tree.js'
+
+const wait = (timeout = 10) => new Promise(r => setTimeout(r, timeout))
 
 export default {
     name: 'display',
@@ -35,29 +39,27 @@ export default {
         }
     },
     methods:{
-        insert(val) {
-            this.$refs.tree.insert(val)
+        async insert(val) {
+            await this.$refs.tree.insert(val)
         },
-        push(){
-            this.insert(this.nextNum)
-            this.$nextTick(() => {
-                this.nextNum = Math.round(Math.random() * 100)
-                this.reWidth()
-            })
+        async push(){
+            await this.insert(this.nextNum)
+            await wait(17)
+            this.nextNum = Math.round(Math.random() * 100)
+            await this.reWidth()
         },
-        reWidth() {
-            setTimeout(() => {
-                const $el = this.$refs.display
-                this.width = $el.scrollWidth + 5
-            }, 20)
+        async reWidth() {
+            await wait(20)
+            const $el = this.$refs.display
+            this.width = $el.scrollWidth
         }
     },
     async mounted() {
         while(this.elements.length) {
             await new Promise(r => setTimeout(r, 13))
-            this.insert(this.elements.shift())
+            await this.insert(this.elements.shift())
         }
-        this.reWidth()
+        await this.reWidth()
     }
 }
 </script>
