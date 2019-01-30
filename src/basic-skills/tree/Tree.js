@@ -16,7 +16,9 @@ const Tree = {
       childHeight: {
         left: 0,
         right: 0
-      }
+      },
+      leftNode: null,
+      rightNode: null
     };
   },
   computed: {
@@ -30,21 +32,7 @@ const Tree = {
       return this.left !== null || this.right !== null;
     },
     childNodes() {
-      const vm = this;
-      const { setHeight } = this;
-      return ['left', 'right'].map((slot) => {
-        if (this[slot] === null) {
-          return this.genHolder(slot);
-        }
-        return (
-          <tree
-            slot={slot}
-            ref={slot}
-            as={slot}
-            onHeight={setHeight.bind(vm, slot)}
-          />
-        );
-      });
+      return [this.leftNode, this.rightNode];
     }
   },
   render(h) {
@@ -73,6 +61,21 @@ const Tree = {
         )
       );
     },
+    genChildNode(slot) {
+      const vm = this;
+      const { setHeight } = this;
+      if (this[slot] === null) {
+        return this.genHolder(slot);
+      }
+      return (
+        <tree
+          slot={slot}
+          ref={slot}
+          as={slot}
+          onHeight={setHeight.bind(vm, slot)}
+        />
+      );
+    },
     async blink() {
       try {
         await this.$refs.vm.blink();
@@ -89,14 +92,19 @@ const Tree = {
         return;
       }
       await this.blink();
-
-      const leftOrRight = +val < +this.value ? 'left' : 'right';
-      await this.setLeftOrRight(leftOrRight, val);
+      const pool = ['left', 'right'];
+      const [leftOrRight, reserved] =
+        +val < +this.value ? pool : pool.reverse();
+      await this.setLeftOrRight(leftOrRight, val, reserved);
     },
-    async setLeftOrRight(leftOrRight, val) {
+    async setLeftOrRight(leftOrRight, val, reserved) {
       // console.group('-->', leftOrRight);
       if (this[leftOrRight] === null) {
         this[leftOrRight] = val;
+        this[`${leftOrRight}Node`] = this.genChildNode(leftOrRight);
+      }
+      if (this[reserved] === null) {
+        this[`${reserved}Node`] = this.genChildNode(reserved);
       }
       await wait(1);
       await this.$refs[leftOrRight].insert(val);
@@ -117,6 +125,54 @@ const Tree = {
         pool = pool.concat(this.$refs.right.traverseInOrder());
       }
       return pool;
+    },
+    async removeChild(nodeVmToRemove) {
+      if (!nodeVmToRemove) return false;
+      if (this.$refs.left === nodeVmToRemove) {
+        this.left = null;
+        await wait(1);
+        return true;
+      }
+      if (this.$refs.right === nodeVmToRemove) {
+        this.right = null;
+        await wait(1);
+        return true;
+      }
+      return false;
+    },
+    async replaceChild(nodeVmToReplace, payloadNodeVm) {
+      if (!nodeVmToReplace || !payloadNodeVm) {
+        return false;
+      }
+      if (this.$refs.left === nodeVmToReplace) {
+        this.left = payloadNodeVm;
+        await wait(1);
+        return true;
+      }
+      if (this.$refs.right === nodeVmToReplace) {
+        this.right = payloadNodeVm;
+        await wait(1);
+        return true;
+      }
+      return false;
+    },
+    async find(value) {
+      // Check the root.
+      if (this.value === value) {
+        return this;
+      }
+
+      if (value < this.value && this.left !== null) {
+        // Check left nodes.
+        return this.$refs.left.find(value);
+      }
+
+      if (value > this.value && this.right !== null) {
+        // Check right nodes.
+        return this.$refs.right.find(value);
+      }
+
+      return null;
     }
   }
 };

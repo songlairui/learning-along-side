@@ -19,6 +19,12 @@
 {{ traverse }}
 :::
 
+::: tip 查找与选中节点
+<input v-model.number='targetNum' type='number'>
+<button @click='find'>查找节点</button>
+
+:::
+
 <script>
 import Vue from 'vue'
 import Tree from './Tree.js'
@@ -33,6 +39,7 @@ export default {
             elements: [41,22,63,34,55,16,77,8,89,40,21,32,53,64,65,36,27,38,49,53],
             traverse: '',
             nextNum: 9,
+            targetNum: 100,
             width: 10,
             loading: {
                 pushing: false,
@@ -65,6 +72,11 @@ export default {
         async print() {
             const pool = this.$refs.tree.traverseInOrder()
             this.traverse = pool
+        },
+        async find() {
+            const { targetNum: target } = this
+            const result = await this.$refs.tree.find(target)
+            console.info('result', result)
         }
     },
     async mounted() {

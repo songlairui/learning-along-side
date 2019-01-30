@@ -5,6 +5,7 @@
       <div class="title" :class="{blink: blinking}">
         {{value}}
         <div class="tip-factor" title="balanceFactor">{{ balanceFactor }}</div>
+        <div class="btn-close" @click.stop="inspect">i</div>
       </div>
       <div class="sub" :class="{line:as === 'left'}"></div>
     </div>
@@ -58,6 +59,9 @@ export default {
       await wait(interval);
       this.blinking = false;
       await wait(1);
+    },
+    inspect() {
+      console.info('this', this)
     }
   }
 };
@@ -99,6 +103,22 @@ export default {
   background: silver;
   color: #fff;
   border-radius: 3px;
+}
+.title [class^="btn"] {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 0.5em;
+  color: #fff;
+  background: silver;
+  border-radius: 3px;
+}
+.title:hover [class^="btn"] {
+  display: block;
+}
+[class^="btn"]:hover {
+  background: gray;
 }
 .title.blink {
   border-color: transparent;
