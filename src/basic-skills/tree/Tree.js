@@ -3,6 +3,9 @@ const TreeNode = Vue.component('TreeNode');
 
 const Tree = {
   name: 'Tree',
+  props: {
+    as: null
+  },
   data() {
     return {
       value: null,
@@ -21,12 +24,11 @@ const Tree = {
         h('div', { slot: 'left', class: 'blank-wrapper' }, [
           h('div', { class: 'blank' }, '.')
         ]);
+      let slot, ref, as;
+      slot = ref = as = 'left';
       return this.left === null
         ? holder
-        : h(Tree, {
-            slot: 'left',
-            ref: 'left'
-          });
+        : h(Tree, { slot, ref, props: { as } });
     },
     rightNode() {
       const h = this.$createElement;
@@ -35,17 +37,17 @@ const Tree = {
         h('div', { slot: 'right', class: 'blank-wrapper' }, [
           h('div', { class: 'blank' }, '.')
         ]);
+
+      let slot, ref, as;
+      slot = ref = as = 'right';
       return this.right === null
         ? holder
-        : h(Tree, {
-            slot: 'right',
-            ref: 'right'
-          });
+        : h(Tree, { slot, ref, props: { as } });
     }
   },
   render(h) {
-    const { leftNode, rightNode, value, left, right } = this;
-    return h(TreeNode, { props: { value, left, right } }, [
+    const { leftNode, rightNode, value, left, right, as } = this;
+    return h(TreeNode, { props: { value, left, right, as } }, [
       leftNode,
       rightNode
     ]);

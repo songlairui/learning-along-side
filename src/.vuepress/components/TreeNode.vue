@@ -1,10 +1,12 @@
 <template>
   <div class="tree-node">
     <div class="value">
+      <div class="pre" :class="{line:as === 'right'}"></div>
       <div class="title">{{value}}</div>
-      <div class="slot">
-        <slot/>
-      </div>
+      <div class="sub" :class="{line:as === 'left'}"></div>
+    </div>
+    <div class="slot">
+      <slot/>
     </div>
     <div class="child" :class="{'has-child': hasChild}">
       <div class="left">
@@ -25,7 +27,8 @@ export default {
       default: "--"
     },
     left: null,
-    right: null
+    right: null,
+    as: null
   },
   computed: {
     hasChild() {
@@ -38,12 +41,23 @@ export default {
 .tree-node {
   display: flex;
   flex-direction: column;
-  padding: 2px;
+  /* padding: 2px; */
 }
 .value {
   /* border: thin dashed chocolate; */
   border-radius: 5px;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.value .pre,
+.value .sub {
+  flex: 1;
+  min-height: 1em;
+}
+.value .line {
+  border-top: thin solid chocolate;
 }
 .title {
   padding: 0.2em;
@@ -56,9 +70,6 @@ export default {
   display: flex;
   border-radius: 5px;
   padding: 2px;
-}
-.child.has-child {
-  border: thin dotted chocolate;
 }
 </style>
 
