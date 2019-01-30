@@ -12,29 +12,56 @@ const Tree = {
     return {
       value: null,
       left: null,
-      right: null
+      right: null,
+      childHeight: {
+        left: 0,
+        right: 0
+      }
     };
   },
   computed: {
+    height() {
+      return Math.max(this.childHeight.left, this.childHeight.right);
+    },
+    balanceFactor() {
+      return this.childHeight.left - this.childHeight.right;
+    },
     holderBlank() {
       return this.left !== null || this.right !== null;
     },
     childNodes() {
+      const vm = this;
+      const { setHeight } = this;
       return ['left', 'right'].map((slot) => {
         if (this[slot] === null) {
           return this.genHolder(slot);
         }
-        return <tree slot={slot} ref={slot} as={slot} />;
+        return (
+          <tree
+            slot={slot}
+            ref={slot}
+            as={slot}
+            onHeight={setHeight.bind(vm, slot)}
+          />
+        );
       });
     }
   },
   render(h) {
-    const { childNodes, value, left, right, as } = this;
+    const { childNodes, value, left, right, height, as, balanceFactor } = this;
     return h(
       TreeNode,
-      { ref: 'vm', props: { value, left, right, as } },
+      {
+        ref: 'vm',
+        props: { value, left, right, height, as, balanceFactor }
+      },
       childNodes
     );
+  },
+  watch: {
+    height(val) {
+      this.$emit('height', val);
+    }
   },
   methods: {
     genHolder(slot) {
@@ -57,6 +84,8 @@ const Tree = {
       if (this.value === null) {
         // console.info(`${val} [OK]`);
         this.value = val;
+        // 向上 emit 树的高度
+        this.$emit('height', 1);
         return;
       }
       await this.blink();
@@ -72,6 +101,22 @@ const Tree = {
       await wait(1);
       await this.$refs[leftOrRight].insert(val);
       // console.groupEnd();
+    },
+    setHeight(key, val) {
+      this.childHeight[key] = val + 1;
+    },
+    traverseInOrder() {
+      let pool = [];
+      if (this.left !== null) {
+        pool = pool.concat(this.$refs.left.traverseInOrder());
+      }
+      if (this.value !== null) {
+        pool.push(this.value);
+      }
+      if (this.right !== null) {
+        pool = pool.concat(this.$refs.right.traverseInOrder());
+      }
+      return pool;
     }
   }
 };

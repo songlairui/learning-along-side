@@ -1,11 +1,8 @@
 # 显示树
 
-<div>
-    <input v-model.number='nextNum' type='number'>
-    <button @click='push'>Push one number</button>
-</div>
-
-> 点击,插入数值到树中
+::: tip <input v-model.number='nextNum' type='number'> <button @click='push'>Push one number</button>
+点击,插入数值到树中
+:::
 
 <div class='display-wrapper'>
     <div class='display' ref='display' :style='displayStyle'>
@@ -15,7 +12,12 @@
     </div>
 </div>
 
-> 灰色块: 单侧为空的子节点
+> 灰色块: 单侧为空的子节点  
+> 灰块数字: 平衡因子
+
+::: tip 遍历 <button @click='print'>Print all</button>
+{{ traverse }}
+:::
 
 <script>
 import Vue from 'vue'
@@ -29,6 +31,7 @@ export default {
     data() {
         return {
             elements: [41,22,63,34,55,16,77,8,89,40,21,32,53,64,65,36,27,38,49,53],
+            traverse: '',
             nextNum: 9,
             width: 10,
             loading: {
@@ -58,6 +61,10 @@ export default {
             await wait(20)
             const $el = this.$refs.display
             this.width = $el.scrollWidth
+        },
+        async print() {
+            const pool = this.$refs.tree.traverseInOrder()
+            this.traverse = pool
         }
     },
     async mounted() {
@@ -80,10 +87,10 @@ export default {
 }
 .blank { 
     padding: .2em;
-    height: 1.4em;
     background: #ccc;
     color: #fff;
     display: inline-block;
     border-radius: .2em;
+    border: thin solid #fff;
 }
 </style>

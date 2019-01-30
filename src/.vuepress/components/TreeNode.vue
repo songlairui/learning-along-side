@@ -2,7 +2,10 @@
   <div class="tree-node">
     <div class="value" @click="blink">
       <div class="pre" :class="{line:as === 'right'}"></div>
-      <div class="title" :class="{blink: blinking}">{{value}}</div>
+      <div class="title" :class="{blink: blinking}">
+        {{value}}
+        <div class="tip-factor" title="balanceFactor">{{ balanceFactor }}</div>
+      </div>
       <div class="sub" :class="{line:as === 'left'}"></div>
     </div>
     <div class="slot">
@@ -30,7 +33,9 @@ export default {
     },
     left: null,
     right: null,
-    as: null
+    height: null,
+    as: null,
+    balanceFactor: null
   },
   data() {
     return {
@@ -86,6 +91,14 @@ export default {
   border-radius: 5px;
   text-align: center;
   cursor: pointer;
+  position: relative;
+}
+.title [class^="tip"] {
+  /* position: absolute; */
+  font-size: 0.5em;
+  background: silver;
+  color: #fff;
+  border-radius: 3px;
 }
 .title.blink {
   border-color: transparent;
