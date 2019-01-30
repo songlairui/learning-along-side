@@ -4,11 +4,16 @@
     <input v-model.number='nextNum' type='number'>
     <button @click='push'>Push one number</button>
 </div>
+
+> 点击,插入数值到树中
+
 <div class='display-wrapper'>
     <div class='display' ref='display' :style='displayStyle'>
         <tree ref='tree'></tree>
     </div>
 </div>
+
+> 灰色块: 单侧为空的子节点
 
 <script>
 import Vue from 'vue'
