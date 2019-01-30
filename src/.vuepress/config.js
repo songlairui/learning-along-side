@@ -86,6 +86,7 @@ function getBasicSkillsSidebar() {
       title: '树',
       children: [
         '/basic-skills/tree/',
+        '/basic-skills/tree/display.md',
         '/basic-skills/tree/bst.md',
         '/basic-skills/tree/avl.md'
       ]

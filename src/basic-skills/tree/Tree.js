@@ -1,4 +1,5 @@
-import TreeNode from './TreeNode';
+import Vue from 'vue';
+const TreeNode = Vue.component('TreeNode');
 
 const Tree = {
   name: 'Tree',
