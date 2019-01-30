@@ -17,42 +17,29 @@ const Tree = {
     holderBlank() {
       return this.left !== null || this.right !== null;
     },
-    leftNode() {
+    childNodes() {
       const h = this.$createElement;
-      const holder =
-        this.holderBlank &&
-        h('div', { slot: 'left', class: 'blank-wrapper' }, [
-          h('div', { class: 'blank' }, '.')
-        ]);
-      let slot, ref, as;
-      slot = ref = as = 'left';
-      return this.left === null
-        ? holder
-        : h(Tree, { slot, ref, props: { as } });
-    },
-    rightNode() {
-      const h = this.$createElement;
-      const holder =
-        this.holderBlank &&
-        h('div', { slot: 'right', class: 'blank-wrapper' }, [
-          h('div', { class: 'blank' }, '.')
-        ]);
-
-      let slot, ref, as;
-      slot = ref = as = 'right';
-      return this.right === null
-        ? holder
-        : h(Tree, { slot, ref, props: { as } });
+      return ['left', 'right'].map((slot) => {
+        if (this[slot] === null) {
+          return this.genHolder(slot);
+        }
+        return h(Tree, { slot, ref: slot, props: { as: slot } });
+      });
     }
   },
   render(h) {
-    const { leftNode, rightNode, value, left, right, as } = this;
-    return h(TreeNode, { props: { value, left, right, as } }, [
-      leftNode,
-      rightNode
-    ]);
+    const { childNodes, value, left, right, as } = this;
+    return h(TreeNode, { props: { value, left, right, as } }, childNodes);
   },
   methods: {
+    genHolder(slot) {
+      return (
+        this.holderBlank &&
+        h('div', { slot, class: 'blank-wrapper' }, [
+          h('div', { class: 'blank' }, '.')
+        ])
+      );
+    },
     insert(val) {
       if (this.value === null) {
         this.value = val;
