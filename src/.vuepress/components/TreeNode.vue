@@ -1,8 +1,8 @@
 <template>
   <div class="tree-node">
-    <div class="value">
+    <div class="value" @click="blink">
       <div class="pre" :class="{line:as === 'right'}"></div>
-      <div class="title">{{value}}</div>
+      <div class="title" :class="{blink: blinking}">{{value}}</div>
       <div class="sub" :class="{line:as === 'left'}"></div>
     </div>
     <div class="slot">
@@ -19,6 +19,8 @@
   </div>
 </template>
 <script>
+const wait = (timeout = 10) => new Promise(r => setTimeout(r, timeout));
+
 export default {
   name: "TreeNode",
   props: {
@@ -30,9 +32,27 @@ export default {
     right: null,
     as: null
   },
+  data() {
+    return {
+      blinking: false
+    };
+  },
   computed: {
     hasChild() {
       return this.left || this.right;
+    }
+  },
+  methods: {
+    async blink(timeout = 30) {
+      const interval = timeout / 3;
+      this.blinking = true;
+      await wait(interval);
+      this.blinking = false;
+      await wait(interval);
+      this.blinking = true;
+      await wait(interval);
+      this.blinking = false;
+      await wait(1);
     }
   }
 };
@@ -65,6 +85,12 @@ export default {
   border: thin dashed chocolate;
   border-radius: 5px;
   text-align: center;
+  cursor: pointer;
+}
+.title.blink {
+  border-color: transparent;
+  background: lightgray;
+  color: #fff;
 }
 .child {
   display: flex;

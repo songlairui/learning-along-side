@@ -30,7 +30,11 @@ const Tree = {
   },
   render(h) {
     const { childNodes, value, left, right, as } = this;
-    return h(TreeNode, { props: { value, left, right, as } }, childNodes);
+    return h(
+      TreeNode,
+      { ref: 'vm', props: { value, left, right, as } },
+      childNodes
+    );
   },
   methods: {
     genHolder(slot) {
@@ -42,23 +46,32 @@ const Tree = {
         )
       );
     },
+    async blink() {
+      try {
+        await this.$refs.vm.blink();
+      } catch (error) {
+        console.warn('e', error);
+      }
+    },
     async insert(val) {
       if (this.value === null) {
-        console.info(`${val} [OK]`);
+        // console.info(`${val} [OK]`);
         this.value = val;
         return;
       }
+      await this.blink();
+
       const leftOrRight = +val < +this.value ? 'left' : 'right';
       await this.setLeftOrRight(leftOrRight, val);
     },
     async setLeftOrRight(leftOrRight, val) {
-      console.group('-->', leftOrRight);
+      // console.group('-->', leftOrRight);
       if (this[leftOrRight] === null) {
         this[leftOrRight] = val;
       }
       await wait(1);
       await this.$refs[leftOrRight].insert(val);
-      console.groupEnd();
+      // console.groupEnd();
     }
   }
 };

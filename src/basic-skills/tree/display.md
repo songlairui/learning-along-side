@@ -28,9 +28,13 @@ export default {
     components: { Tree },
     data() {
         return {
-            elements: [4,2,6,3,5,1,7,0,8,4,2,3,5,6,6,3,2,3,4,53],
+            elements: [41,22,63,34,55,16,77,8,89,40,21,32,53,64,65,36,27,38,49,53],
             nextNum: 9,
-            width: 10
+            width: 10,
+            loading: {
+                pushing: false,
+                inserting: false
+            }
         }
     },
     computed: {
@@ -43,10 +47,12 @@ export default {
             await this.$refs.tree.insert(val)
         },
         async push(){
+            this.loading.pushing = true
             await this.insert(this.nextNum)
             await wait(17)
             this.nextNum = Math.round(Math.random() * 100)
             await this.reWidth()
+            this.loading.pushing = false
         },
         async reWidth() {
             await wait(20)
