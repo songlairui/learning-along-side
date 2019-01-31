@@ -24,11 +24,6 @@
 <button @click='find'>查找节点</button>
 <button @click='findVNode'>查找节点 Vnode</button>
 
-{{ selected.map((_, i) => i) }}
-
-<div>
-    <button @click='swap'>对换节点</button>
-</div>
 :::
 
 <script>
@@ -98,21 +93,6 @@ export default {
             if (this.selected.includes(val)) return
             this.selected.push(val)
         },
-        swap() {
-            if (this.selected.length !== 2) return console.error('waiting selected')
-            const [parentA, parentB] = this.selected.map(vm => vm.$parent.$parent)
-            const [childrenA, childrenB] = [parentA, parentB].map(vm => vm.$children)
-            const [slotA, slotB] = this.selected.map(vm => vm.$parent.$parent.$slots[vm.as])
-            const [[vnA], [vnB]] = [slotA, slotB]
-            console.info('-', slotA, slotB, vnA, vnB)
-            slotA.splice(0, 1, vnB)
-            slotB.splice(0, 1, vnA)
-            const [targetIdxA, targetIdxB] = [childrenA, childrenB]
-            childrenA.splice(childrenA.indexOf(vnA.componentInstance), 1, vnB.componentInstance)
-            childrenB.splice(childrenB.indexOf(vnB.componentInstance), 1, vnA.componentInstance)
-            ;[parentA, parentB].forEach(vm => vm.$forceUpdate())
-            return console.info('complete', this.selected)
-        }
     },
     async mounted() {
         while(this.elements.length) {
