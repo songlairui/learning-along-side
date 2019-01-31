@@ -62,6 +62,7 @@ export default {
     },
     inspect() {
       console.info('this', this)
+      this.$emit('select', this)
     }
   }
 };
@@ -116,6 +117,7 @@ export default {
 }
 .title:hover [class^="btn"] {
   display: block;
+  min-width: 1em;
 }
 [class^="btn"]:hover {
   background: gray;

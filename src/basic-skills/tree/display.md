@@ -7,7 +7,7 @@
 <div class='display-wrapper'>
     <div class='display' ref='display' :style='displayStyle'>
         <div style='display:flex'>
-            <tree ref='tree'></tree>
+            <tree ref='tree' @select='select'></tree>
         </div>
     </div>
 </div>
@@ -22,7 +22,13 @@
 ::: tip 查找与选中节点
 <input v-model.number='targetNum' type='number'>
 <button @click='find'>查找节点</button>
+<button @click='findVNode'>查找节点 Vnode</button>
 
+{{ selected.map((_, i) => i) }}
+
+<div>
+    <button @click='swap'>对换节点</button>
+</div>
 :::
 
 <script>
@@ -44,7 +50,8 @@ export default {
             loading: {
                 pushing: false,
                 inserting: false
-            }
+            },
+            selected: []
         }
     },
     computed: {
@@ -75,8 +82,36 @@ export default {
         },
         async find() {
             const { targetNum: target } = this
-            const result = await this.$refs.tree.find(target)
-            console.info('result', result)
+            return await this.$refs.tree.find(target)
+        },
+        async findVNode() {
+            const vm = await this.find()
+            const selfVNode = vm.getSelfSlot()
+            const parentTreeVm = vm.parentTreeVm
+            console.info('-', selfVNode, parentTreeVm)
+            return selfVNode
+        },
+        select(val) {
+            if (this.selected.length >= 2) {
+                this.selected = []
+            }
+            if (this.selected.includes(val)) return
+            this.selected.push(val)
+        },
+        swap() {
+            if (this.selected.length !== 2) return console.error('waiting selected')
+            const [parentA, parentB] = this.selected.map(vm => vm.$parent.$parent)
+            const [childrenA, childrenB] = [parentA, parentB].map(vm => vm.$children)
+            const [slotA, slotB] = this.selected.map(vm => vm.$parent.$parent.$slots[vm.as])
+            const [[vnA], [vnB]] = [slotA, slotB]
+            console.info('-', slotA, slotB, vnA, vnB)
+            slotA.splice(0, 1, vnB)
+            slotB.splice(0, 1, vnA)
+            const [targetIdxA, targetIdxB] = [childrenA, childrenB]
+            childrenA.splice(childrenA.indexOf(vnA.componentInstance), 1, vnB.componentInstance)
+            childrenB.splice(childrenB.indexOf(vnB.componentInstance), 1, vnA.componentInstance)
+            ;[parentA, parentB].forEach(vm => vm.$forceUpdate())
+            return console.info('complete', this.selected)
         }
     },
     async mounted() {
@@ -88,7 +123,7 @@ export default {
     }
 }
 </script>
-<style>
+<style scoped>
 .display-wrapper {
     overflow: auto
 }
@@ -97,7 +132,7 @@ export default {
     justify-content: center;
     align-items: center;
 }
-.blank { 
+.display-wrapper >>> .blank { 
     padding: .2em;
     background: #ccc;
     color: #fff;

@@ -22,6 +22,10 @@ const Tree = {
     };
   },
   computed: {
+    parentTreeVm() {
+      if (this.as === null) return null;
+      return this.$parent;
+    },
     height() {
       return Math.max(this.childHeight.left, this.childHeight.right);
     },
@@ -36,12 +40,18 @@ const Tree = {
     }
   },
   render(h) {
+    const vm = this
     const { childNodes, value, left, right, height, as, balanceFactor } = this;
     return h(
       TreeNode,
       {
         ref: 'vm',
-        props: { value, left, right, height, as, balanceFactor }
+        props: { value, left, right, height, as, balanceFactor },
+        on: {
+          select(val) {
+            vm.$emit('select', val)
+          }
+        }
       },
       childNodes
     );
@@ -52,6 +62,9 @@ const Tree = {
     }
   },
   methods: {
+    select(val) {
+      this.$emit('select', val)
+    },
     genHolder(slot) {
       return (
         this.holderBlank && (
@@ -63,7 +76,7 @@ const Tree = {
     },
     genChildNode(slot) {
       const vm = this;
-      const { setHeight } = this;
+      const { setHeight, select } = this;
       if (this[slot] === null) {
         return this.genHolder(slot);
       }
@@ -73,6 +86,7 @@ const Tree = {
           ref={slot}
           as={slot}
           onHeight={setHeight.bind(vm, slot)}
+          onSelect={select.bind(vm)}
         />
       );
     },
@@ -173,6 +187,16 @@ const Tree = {
       }
 
       return null;
+    },
+    getSelfSlot() {
+      const { parentTreeVm } = this;
+      if (!parentTreeVm) return null;
+      return parentTreeVm.$slots[`${this.as}`];
+    },
+    replaceMe(vNode = null) {
+      const { parentTreeVm } = this;
+      if (!parentTreeVm) return;
+      parentTreeVm[`${this.as}Node`] = vNode;
     }
   }
 };
