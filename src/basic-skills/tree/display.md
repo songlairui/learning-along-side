@@ -27,7 +27,6 @@
 :::
 
 <script>
-import Vue from 'vue'
 import Tree from './Tree.js'
 
 const wait = (timeout = 10) => new Promise(r => setTimeout(r, timeout))

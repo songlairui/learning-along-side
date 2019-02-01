@@ -18,6 +18,7 @@
         - [AVL](/basic-skills/tree/avl.md)
         - [BST](/basic-skills/tree/bst.md)
         - [显示树](/basic-skills/tree/display.md)
+        - [显示树 2](/basic-skills/tree/display2.md)
         - [BinaryTreeNode](/basic-skills/tree/tree-node.md)
         - [字典树](/basic-skills/tree/trie.md)
 - [编程语言的学习](/language/)

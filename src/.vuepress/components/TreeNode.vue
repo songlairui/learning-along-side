@@ -30,12 +30,16 @@ export default {
   props: {
     value: {
       type: null,
-      default: "--"
+      default: "-"
     },
     left: null,
     right: null,
     height: null,
     as: null,
+    postData: {
+      type: Object,
+      default: () => ({ factor: 0 })
+    },
     balanceFactor: null
   },
   data() {
@@ -61,8 +65,8 @@ export default {
       await wait(1);
     },
     inspect() {
-      console.info('this', this)
-      this.$emit('select', this)
+      console.info("this", this);
+      this.$emit("select", this);
     }
   }
 };
