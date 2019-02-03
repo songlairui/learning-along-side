@@ -36,10 +36,6 @@ export default {
     right: null,
     height: null,
     as: null,
-    postData: {
-      type: Object,
-      default: () => ({ factor: 0 })
-    },
     balanceFactor: null
   },
   data() {

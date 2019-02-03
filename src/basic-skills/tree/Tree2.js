@@ -1,5 +1,7 @@
 import Vue from 'vue';
 
+const wait = (timeout = 20) => new Promise((r) => setTimeout(r, timeout));
+
 const TreeNode = Vue.component('TreeNode');
 
 const TreeC = {
@@ -20,7 +22,7 @@ const TreeC = {
       postData: {
         factor: 0
       },
-      height: 0
+      height: -1
     };
   },
   computed: {
@@ -40,33 +42,39 @@ const TreeC = {
       const val = this.underMyRight[0];
       return val === undefined ? null : val;
     },
-    leftHeight() {
-      const leftVm = this.leftNode && this.leftNode.componentInstance;
-      if (leftVm) {
-        return leftVm.height + 1;
-      }
-      return 0;
-    },
-    rightHeight() {
-      const rightVM = this.rightNode && this.rightNode.componentInstance;
-      if (rightVM) {
-        return rightVM.height + 1;
-      }
-      return 0;
-    },
     balanceFactor() {
-      return this.leftHeight - this.rightHeight;
+      return 0;
+      // return this.getLeftHeight() - this.getRightHeight();
     },
     blankHolder() {
       return this.left !== null || this.right !== null;
     }
   },
   methods: {
+    getLeftHeight() {
+      if (this.left === null) {
+        return 0;
+      }
+      const { componentInstance } = this.leftNode;
+      if (!componentInstance || componentInstance.getHeight) return 0;
+      return componentInstance.getHeight() + 1;
+    },
+    getRightHeight() {
+      if (this.right === null) {
+        return 0;
+      }
+      const { componentInstance } = this.rightNode;
+      if (!componentInstance || componentInstance.getHeight) return 0;
+      return componentInstance.getHeight() + 1;
+    },
     getHeight() {
-      return Math.max(this.leftHeight, this.rightHeight);
+      const [left, right] = [this.getLeftHeight(), this.getRightHeight()];
+      const height = Math.max(left, right);
+      this.height = height;
+      return height;
     },
     getBalanceFactor() {
-      return this.leftHeight - this.rightHeight;
+      return this.getLeftHeight() - this.getRightHeight();
     },
     insertArray(arr) {
       if (!arr.length) return;
@@ -123,18 +131,16 @@ const TreeC = {
     }
   },
   mounted() {
-    this.height = this.getHeight();
-    // this.postData.factor = this.getBalanceFactor();
-    console.info('mounted', this.value, this.height);
+    this.getHeight();
   },
   render(h) {
     const vm = this;
-    const { value, left, right, as, postData, balanceFactor } = this;
+    const { value, left, right, as, balanceFactor, height } = this;
     // balanceFactor will reCalc after this render process
     return h(TreeNode, {
       key: value,
       ref: 'vm',
-      props: { value, left, right, as, balanceFactor },
+      props: { value, left, right, as, balanceFactor: height },
       scopedSlots: {
         left() {
           return vm.leftNode;
