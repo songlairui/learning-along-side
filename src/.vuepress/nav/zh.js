@@ -1,17 +1,24 @@
 module.exports = [
   {
-    text: '基本功',
-    link: '/basic-skills/',
+    text: '+',
+    items: [{ text: '新知道', link: '/activity/new-know/' }],
+  },
+  {
+    text: '功夫',
     items: [
       {
         text: '数据结构',
         items: [
           {
             text: '堆(via 数组)',
-            link: '/basic-skills/heap/'
-          }
-        ]
-      }
-    ]
-  }
+            link: '/basic-skills/heap/',
+          },
+        ],
+      },
+      {
+        text: 'node',
+        items: [{ text: 'npm 包', link: '/things/node-packages' }],
+      },
+    ],
+  },
 ];

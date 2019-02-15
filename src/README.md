@@ -1,6 +1,8 @@
 # 文档
 <!-- 自动生成 -->
 
+- [活动](/activity/)
+    - [新知道](/activity/new-know/)
 - [基本技能](/basic-skills/)
     - [堆](/basic-skills/heap/)
         - [最小堆 (动画)](/basic-skills/heap/animated.md)
@@ -26,3 +28,10 @@
         - [Class](/language/ES6/class.md)
 - [Things](/things/)
     - [配置中心](/things/configure-center/)
+    - [Express + Socket](/things/express-with-socket/)
+    - [GRPC](/things/grpc/)
+    - [node 包管理](/things/node-packages/)
+        - [常见 npm 包](/things/node-packages/frequent-package.md)
+        - [包机制在工程化中使用场景](/things/node-packages/within-scaffold.md)
+    - [Portal Wifi](/things/portal-wifi/)
+        - [微信连 wifi](/things/portal-wifi/wechat.md)
