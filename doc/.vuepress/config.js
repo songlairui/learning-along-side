@@ -1,8 +1,11 @@
 const path = require('path')
-
+const extendMarkdown = require('./extendMarkdown')
 const componentsDir = path.resolve(__dirname, '../../sfc')
 
 module.exports = {
+  markdown: {
+    extendMarkdown
+  },
   base: '/learning-along-side/',
   dest: path.resolve(__dirname, '../../dist'),
   locales: {
