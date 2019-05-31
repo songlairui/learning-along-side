@@ -2,4 +2,4 @@
 
 - computed
 - 函数式组件
-  - [v-model](./functional-v-m)
+  - [v-model](./functional/v-m)
