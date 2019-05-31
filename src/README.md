@@ -35,3 +35,5 @@
         - [包机制在工程化中使用场景](/things/node-packages/within-scaffold.md)
     - [Portal Wifi](/things/portal-wifi/)
         - [微信连 wifi](/things/portal-wifi/wechat.md)
+- [Vue Skill](/vue-skill/)
+        - [v-model 场景](/vue-skill/functional/v-m.md)

@@ -1,9 +1,11 @@
-const path = require('path');
+const path = require('path')
+
+const componentsDir = path.resolve(__dirname, 'components')
 
 module.exports = (ctx) => ({
   base: '/learning-along-side/',
   dest: path.resolve(__dirname, '../../dist'),
-  theme: '@vuepress/theme-default',
+  theme: './theme',
   locales: {
     '/': {
       editLinkText: '在 GitHub 上编辑此页',
@@ -40,10 +42,17 @@ module.exports = (ctx) => ({
       }
     ],
     ['@vuepress/medium-zoom', true],
-    ['@vuepress/notification', true]
+    ['@vuepress/notification', true],
+    [
+      '@vuepress/register-components',
+      {
+        componentsDir
+      }
+    ],
+    ['@vuepress/nprogress']
   ],
   clientRootMixin: path.resolve(__dirname, 'mixin.js')
-});
+})
 
 function getUserGuideSidebar(groupA, groupB) {
   return [
@@ -57,7 +66,7 @@ function getUserGuideSidebar(groupA, groupB) {
       collapsable: false,
       children: ['clients']
     }
-  ];
+  ]
 }
 
 function getBasicSkillsSidebar() {
@@ -91,5 +100,5 @@ function getBasicSkillsSidebar() {
         '/basic-skills/tree/avl.md'
       ]
     }
-  ];
+  ]
 }
