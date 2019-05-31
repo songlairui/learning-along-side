@@ -5,21 +5,21 @@
   "main": "index.js",
   "scripts": {
     "deploy": "sh bin/deploy.sh",
-    "dev": "vuepress dev doc ",
-    "build": "vuepress build doc ",
+    "dev": "vuepress dev doc",
+    "build": "vuepress build doc",
     "cover": "node bin/genCover.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
+    "vuepress": "next",
     "@vuepress/plugin-back-to-top": "^1.0.0-alpha.48",
     "@vuepress/plugin-medium-zoom": "^1.0.0-alpha.48",
-    "@vuepress/plugin-notification": "^1.0.0-alpha.5",
-    "@vuepress/plugin-pwa": "^1.0.0-alpha.0",
+    "@vuepress/plugin-notification": "^1.0.0-alpha.42",
+    "@vuepress/plugin-pwa": "^1.0.0-alpha.48",
     "@vuepress/plugin-nprogress": "^1.0.0-alpha.48",
     "@vuepress/plugin-pagination": "^1.0.0-alpha.48",
     "@vuepress/plugin-register-components": "^1.0.0-alpha.48"

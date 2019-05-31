@@ -1,11 +1,10 @@
 const path = require('path')
 
-const componentsDir = path.resolve(__dirname, 'components')
+const componentsDir = path.resolve(__dirname, '../../sfc')
 
-module.exports = (ctx) => ({
+module.exports = {
   base: '/learning-along-side/',
   dest: path.resolve(__dirname, '../../dist'),
-  theme: './theme',
   locales: {
     '/': {
       editLinkText: '在 GitHub 上编辑此页',
@@ -52,7 +51,7 @@ module.exports = (ctx) => ({
     ['@vuepress/nprogress']
   ],
   clientRootMixin: path.resolve(__dirname, 'mixin.js')
-})
+}
 
 function getUserGuideSidebar(groupA, groupB) {
   return [
