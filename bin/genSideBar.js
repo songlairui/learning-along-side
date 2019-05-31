@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const targetFolder = path.resolve(__dirname, '../src');
+const targetFolder = path.resolve(__dirname, '../doc');
 
 const ignore = ['assets', '.vuepress'];
 
