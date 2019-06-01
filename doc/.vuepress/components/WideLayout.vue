@@ -128,7 +128,7 @@ export default {
 .two-col {
     display: grid;
     grid-template-rows: 1fr;
-    grid-template-columns: 1fr 4fr 3fr;
+    grid-template-columns: 2fr 4fr 3fr;
     > div {
         height: 100vh;
         overflow: auto;
