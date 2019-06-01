@@ -2,6 +2,8 @@
 layout: WideLayout
 ---
 
+# 模糊的小目标 所需基本功能·第一
+
 > 函数式组件
 
 ::: slot left

@@ -4,7 +4,8 @@ const componentsDir = path.resolve(__dirname, '../../sfc')
 
 module.exports = {
   markdown: {
-    extendMarkdown
+    extendMarkdown,
+    lineNumbers: true
   },
   base: '/learning-along-side/',
   dest: path.resolve(__dirname, '../../dist'),
