@@ -6,14 +6,18 @@ layout: WideLayout
 
 > 单层基本变量 `String`
 
-```gql
-values:
-    title:
-    name:
+<<< @/sfc/v-model/posts.graphql
 
+预览[左侧 ⬅️](#响应-sync)
+
+```vue
+<v-model-plain-posts :post.sync="post" :comment.sync="comment" />
 ```
 
-::: slot ~
+::: slot left
+
+### 响应 .sync
+
 <v-model-plain-posts :post.sync='post' :comment.sync='comment' v-model='text'/>
 :::
 
