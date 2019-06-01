@@ -1,6 +1,7 @@
-const path = require('path')
-const extendMarkdown = require('./extendMarkdown')
-const componentsDir = path.resolve(__dirname, '../../sfc')
+var path = require('path')
+var extendMarkdown = require('./extendMarkdown')
+var componentsDir = path.resolve(__dirname, '../../sfc')
+var chainGql = require('./chainGql')
 
 module.exports = {
   markdown: {
@@ -54,7 +55,10 @@ module.exports = {
     ],
     ['@vuepress/nprogress']
   ],
-  clientRootMixin: path.resolve(__dirname, 'mixin.js')
+  clientRootMixin: path.resolve(__dirname, 'mixin.js'),
+  chainWebpack(config) {
+    chainGql(config)
+  }
 }
 
 function getUserGuideSidebar(groupA, groupB) {

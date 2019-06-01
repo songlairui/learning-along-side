@@ -1,0 +1,12 @@
+type Post {
+  comments: [Comment]
+  id: ID!
+  text: String!
+  abstract: String
+  tags: [String]
+}
+
+type Comment {
+  id: ID!
+  text: String!
+}
