@@ -3,7 +3,7 @@ var findUp = require('find-up')
 
 module.exports = (config) => {
   const workDir = path.join(findUp.sync('package.json'), '..')
-  const useThreads = process.env.NODE_ENV === 'production'
+  const useThreads = false // process.env.NODE_ENV === 'production'
   const cacheDirectory = path.resolve(
     workDir,
     'node_modules/.cache/cache-loader'
