@@ -45,7 +45,7 @@ JSX 版:
 >
 > 此处应有官方文档..
 
-## 自定义组件包装 `v-model` 代码
+### 自定义组件包装 `v-model` 代码
 
 > 预览效果见[左侧 ⬅️](#组件使用-v-model)
 
@@ -65,7 +65,7 @@ modelBase:
 
 ::: slot ~
 
-### KEEP_CLEAR
+#### KEEP_CLEAR
 
 <<< @/sfc/v-model/keep-clear.js
 
@@ -79,4 +79,27 @@ modelBase:
 <v-model-index />
 
 如上预览, 输入框输入值,点击按钮,将输入框的值 `$emit` 到上级
+:::
+
+### bind.sync
+
+> 与 v-model 类似, 是 `$emit('update:[val]', value)` 与 `props: { [val]: null }` 的语法糖
+
+> 预览效果见[左侧 ⬅️](#组件使用-sync)
+
+如下代码, 组件 modelBase 上使用了 `.sync`
+
+<<< @/sfc/bind-sync/index.vue {3}
+
+modelBase:
+
+<<< @/sfc/bind-sync/base.vue
+
+::: slot left
+
+### 组件使用 `.sync`
+
+<bind-sync-index />
+
+如上预览, 输入框输入值,点击按钮,将输入框的值 `$emit update:` 到上级
 :::

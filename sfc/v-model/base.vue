@@ -1,6 +1,9 @@
 <template>
     <div class="stage">
-        <div class="receive">{{ $attrs.value }}</div>
+        <div class="receive">
+            <div class="label">{ { $attrs.value } }:</div>
+            {{ $attrs.value }}
+        </div>
         <div class="to-emit">
             <input ref="input" type="text" value="hello">
             <button @click="$emit('input', $refs.input.value)">
