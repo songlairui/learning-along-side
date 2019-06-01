@@ -1,14 +1,14 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require('fs')
+const path = require('path')
 
-const { genMeta } = require('./genSideBar');
+const { genMeta } = require('./genSideBar')
 
-const targetFile = path.resolve(__dirname, '../doc/README.md');
-const meta = genMeta();
+const targetFile = path.resolve(__dirname, '../doc/README.md')
+const meta = genMeta()
 
-const str = `# 文档\n<!-- 自动生成 -->\n\n${meta
+const str = `---\nlayout: Home\n---\n\n# 文档\n<!-- 自动生成 -->\n\n${meta
   .slice(1)
   .map((item) => item.text)
-  .join('\n')}`;
+  .join('\n')}`
 
-fs.writeFileSync(targetFile, str);
+fs.writeFileSync(targetFile, str)
