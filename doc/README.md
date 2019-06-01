@@ -41,5 +41,5 @@ layout: Home
         - [微信连 wifi](/things/portal-wifi/wechat.md)
 - [Vue Skill](/vue-skill/)
     - [函数式组件](/vue-skill/functional/)
+        - [模糊的小目标 所需基本功能·第一](/vue-skill/functional/v-m-1.md)
         - [模糊的小目标 基本功能拓展·第二](/vue-skill/functional/v-m-2.md)
-        - [模糊的小目标 所需基本功能·第一](/vue-skill/functional/v-m.md)
