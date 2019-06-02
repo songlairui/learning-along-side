@@ -7,6 +7,7 @@ layout: Home
 
 - [活动](/activity/)
     - [新知道](/activity/new-know/)
+    - [Time Flies](/activity/time-flies/)
 - [基本技能](/basic-skills/)
     - [堆](/basic-skills/heap/)
         - [最小堆 (动画)](/basic-skills/heap/animated.md)
@@ -42,6 +43,7 @@ layout: Home
         - [微信连 wifi](/things/portal-wifi/wechat.md)
     - [Specs](/things/specs/)
 - [Vue Skill](/vue-skill/)
+    - [Directives](/vue-skill/directives/)
     - [函数式组件](/vue-skill/functional/)
         - [模糊的小目标 所需基本功能·第一](/vue-skill/functional/v-m-1.md)
         - [模糊的小目标 基本功能拓展·第二](/vue-skill/functional/v-m-2.md)
