@@ -1,11 +1,30 @@
 <template>
     <div class="time-files">
         <h1>{{ date }}</h1>
-        <p class="pre">{{ cursors }}</p>
         <div class="history-items">
-            <div class="history-item" v-for="(item,idx) in historyItems">
-                <div class="checkbox">
-                    <input type="checkbox" @click="toggleOn($event, idx)" :checked="!!cursors[idx]">
+            <div
+                v-for="(item,idx) in historyItems"
+                class="history-item"
+                :class="{
+                        group: cursors[idx] === '<>',
+                        'group-end': cursors[idx] === '</>',
+                        occupied: occupied[idx]
+                    }"
+            >
+                <div class="group-title" v-if="cursors[idx] === '<>'">
+                    <input
+                        type="text"
+                        :value="labels[idx]"
+                        @input="inputTitle($event.target.value,idx)"
+                    >
+                </div>
+                <div class="checkbox" :class="{pairing: idx === last}">
+                    <input
+                        type="checkbox"
+                        @click="toggleOn($event, idx)"
+                        :disabled="occupied[idx]"
+                        :checked="!!cursors[idx] || idx === last"
+                    >
                 </div>
                 <div class="time">{{item.am ?'上':'下'}}午 {{item.hh}}:{{item.mm}}</div>
                 <div class="title">{{item.external.title}}</div>
@@ -16,20 +35,24 @@
 </template>
 
 <script>
+import { debounce } from "lodash";
 import { date, historyItems } from "../../data/time-flies";
 import { Period } from "../utils/Period";
 
 export default {
     data() {
         let cursors = [];
+        let labels = [];
         try {
             cursors = JSON.parse(
                 localStorage.getItem("_action_cursors") || "[]"
             );
+            labels = JSON.parse(localStorage.getItem("_labels") || "[]");
         } catch (e) {}
         return {
             date,
             cursors,
+            labels,
             last: ""
         };
     },
@@ -50,13 +73,36 @@ export default {
             return;
         },
         lastOpen() {},
-        occupyed() {}
+        occupied() {
+            const arr = [];
+            let occupying = false;
+            for (let i = 0; i < this.historyItems.length; i++) {
+                var val = this.cursors[i];
+                switch (val) {
+                    case "<>":
+                        occupying = true;
+                        break;
+                    case "</>":
+                        occupying = false;
+                        break;
+                    default:
+                        arr[i] = occupying;
+                }
+            }
+            return arr;
+        }
     },
     methods: {
         toggleOn(e, idx) {
             const { checked } = e.target;
             console.group("toggleOn", checked);
             if (!checked) {
+                if (idx === this.last) {
+                    this.last = "";
+                    console.groupEnd();
+                    return;
+                }
+                this.last = "";
                 let pairIdx;
                 if (this.cursors[idx] === "<>") {
                     pairIdx = this.cursors.indexOf("</>", idx);
@@ -68,9 +114,9 @@ export default {
                     console.groupEnd();
                     return;
                 }
+                this.last = pairIdx;
                 this.$set(this.cursors, idx, null);
                 this.$set(this.cursors, pairIdx, null);
-
                 this.snap();
                 console.groupEnd();
 
@@ -92,11 +138,18 @@ export default {
             }
             console.groupEnd();
         },
-        snap() {
+        snap: debounce(function() {
             localStorage.setItem(
                 "_action_cursors",
                 JSON.stringify(this.cursors)
             );
+        }, 500),
+        snapLabels: debounce(function() {
+            localStorage.setItem("_labels", JSON.stringify(this.labels));
+        }, 500),
+        inputTitle(value, idx) {
+            this.$set(this.labels, idx, value);
+            this.snapLabels();
         }
     }
 };
@@ -105,10 +158,15 @@ export default {
 <style lang="less" scoped>
 .history-item {
     display: flex;
+    flex-wrap: wrap;
     .checkbox {
         flex: 0 0 1em;
         input {
             // visibility: hidden;
+        }
+        &.pairing {
+            background: springgreen;
+            animation: 3s slidein alternate infinite;
         }
     }
     &:hover .checkbox input {
@@ -122,6 +180,42 @@ export default {
     }
     .site {
         flex: 1;
+    }
+    .group-title {
+        flex: 0 0 100%;
+        display: flex;
+        input {
+            flex: 1;
+            outline: none;
+            border: none;
+            font-weight: 700;
+            font-size: 1.5em;
+            margin-left: -2em;
+            background: yellowgreen;
+            color: aliceblue;
+            line-height: 2em;
+            text-indent: 0.5em;
+            border-radius: 5px 5px 0 5px;
+        }
+    }
+    &.group {
+        background: yellowgreen;
+        border-radius: 0 5px 0 0;
+    }
+    &.group-end {
+        background: lightgreen;
+        border-radius: 0 0 5px 5px;
+    }
+    &.occupied {
+        background: lightgray;
+    }
+}
+@keyframes pairing {
+    from {
+        background-color: blueviolet;
+    }
+    to {
+        background-color: yellowgreen;
     }
 }
 </style>
