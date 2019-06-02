@@ -24,6 +24,24 @@
   不过还是休息好是绝佳没有之一的手段  
   记录 mistake 是一个疲劳之中与疲劳对抗的手段,容易上瘾还
 
+## TODO
+
+- [ ] coding 时间结合!  
+       commmit 记录
+- [ ] 每个 group 耗时分析
+  - 搜索耗时
+  - coding 耗时  
+     对搜索结果的应用
+- [ ] 闲暇时刻统计  
+       剔除 coding 部分
+- [ ] group 活动细分后评定
+  - 与最初目标的距离
+  - 能力拓展  
+     效用评估
+  - 类别划分  
+     个人记录工具中使用  
+     收集,统计
+
 <ClientOnly>
 <time-flies-history-items />
 </ClientOnly>
