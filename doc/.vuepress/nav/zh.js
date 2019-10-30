@@ -17,7 +17,7 @@ module.exports = [
       },
       {
         text: 'node',
-        items: [{ text: 'npm 包', link: '/things/node-packages' }],
+        items: [{ text: 'npm 包', link: '/things/node-packages/' }],
       },
     ],
   },
