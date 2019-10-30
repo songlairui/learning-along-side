@@ -6,6 +6,7 @@ const targetFolder = path.resolve(__dirname, '../doc')
 const ignore = ['assets', '.vuepress']
 
 const AllMeta = []
+const AllMetaNested = []
 
 function repeatStr(str, times) {
   return Array.from({ length: times })
@@ -14,15 +15,18 @@ function repeatStr(str, times) {
 }
 
 function grabMdFileMeta(file, dir, depth) {
+  let __type__
   if (!file.endsWith('README.md')) {
     depth += 1
+  } else {
+    __type__ = 'README'
   }
   const raw = fs
     .readFileSync(file)
     .toString()
     .split(/\n+/)
-    .map((line) => line.trim())
-    .filter((line) => line)
+    .map(line => line.trim())
+    .filter(line => line)
   let titleLine = 0
   if (raw[0].startsWith('---')) {
     let reachMatterEnd = false
@@ -39,6 +43,7 @@ function grabMdFileMeta(file, dir, depth) {
       .trim() || file
   const abPath = path.relative(targetFolder, file).replace(/README.md$/, '')
   return {
+    __type__,
     file,
     title,
     abPath,
@@ -47,12 +52,24 @@ function grabMdFileMeta(file, dir, depth) {
   }
 }
 
-function grabDir(dir = targetFolder, parent = '', depth = 0) {
+function grabDir(dir = targetFolder, depth = 0, parent = []) {
   const children = fs.readdirSync(dir)
   const folderMeta = []
+  folderMeta.parent = parent
+  if (!parent[0]) {
+    parent[0] = [{ __type__: 'README', children: [] }]
+  }
+  if (parent[0].__type__ !== 'README') {
+    parent.unshift({ __type__: 'README', children: [] })
+  }
+  if (!parent[0].children) {
+    parent[0].children = []
+  }
+  parent[0].children.push(folderMeta)
+
   const folders = []
   const files = []
-  children.forEach((file) => {
+  children.forEach(file => {
     if (ignore.includes(file)) return
     const nextFolder = path.resolve(dir, file)
     if (file.toLowerCase() === 'readme.md') {
@@ -69,21 +86,23 @@ function grabDir(dir = targetFolder, parent = '', depth = 0) {
     folders.push(nextFolder)
   })
   // files first
-  files.forEach((file) => {
+  files.forEach(file => {
     const meta = grabMdFileMeta(file, dir, depth)
     folderMeta.push(meta)
   })
   AllMeta.push(...folderMeta)
+  AllMetaNested.push(folderMeta)
 
   // folder then
-  folders.forEach((folder) => {
-    grabDir(folder, dir, depth + 1)
+  folders.forEach(folder => {
+    grabDir(folder, depth + 1, folderMeta)
   })
 }
 
 function genMeta() {
   AllMeta.length = 0
   grabDir()
+  AllMeta.__nested__ = AllMetaNested[0]
   return AllMeta
 }
 

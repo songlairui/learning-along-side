@@ -8,7 +8,8 @@
     "dev": "vuepress dev doc",
     "build": "vuepress build doc",
     "cover": "node bin/genCover.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "meta": "node bin/genCoverMeta.js"
   },
   "keywords": [],
   "author": "",
@@ -19,7 +20,8 @@
     "graphql-import-loader": "^0.2.1",
     "graphql-tag": "^2.10.1",
     "less": "^3.10.3",
-    "less-loader": "^5.0.0"
+    "less-loader": "^5.0.0",
+    "vue-grid-layout": "^2.3.6"
   },
   "devDependencies": {
     "@vuepress/plugin-back-to-top": "^1.2.0",
