@@ -24,3 +24,11 @@ yarn deploy
 
 - [ ] 类似 storybook 的 playground
   - [ ] playground for 函数式组件
+- [ ] localStorage 暂存首页位置信息
+  - [ ] 位置元数据递归传递
+- [ ] 添加 square 算法逻辑
+  - [ ] 过渡态计算？
+
+## Bug Fix
+
+- 删除 node_module/.cache (yarn add something 会自动删除)
