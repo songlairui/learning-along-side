@@ -1,51 +1,7 @@
 ---
-layout: Home
+layout: DelightHome
 ---
 
 # 文档
-<!-- 自动生成 -->
 
-- [活动](/activity/)
-    - [新知道](/activity/new-know/)
-    - [Time Flies](/activity/time-flies/)
-- [基本技能](/basic-skills/)
-    - [堆](/basic-skills/heap/)
-        - [最小堆 (动画)](/basic-skills/heap/animated.md)
-        - [二项式堆](/basic-skills/heap/binomial.md)
-        - [----](/basic-skills/heap/divider.md)
-        - [草稿](/basic-skills/heap/draft.md)
-        - [观察索引](/basic-skills/heap/init.md)
-        - [排序 (动画)](/basic-skills/heap/sort-animated.md)
-        - [排序](/basic-skills/heap/sort.md)
-    - [队列](/basic-skills/queue/)
-        - [优先队列](/basic-skills/queue/priority-queue.md)
-    - [栈](/basic-skills/stack/)
-        - [O(1) 取最小值](/basic-skills/stack/min-stack.md)
-    - [树](/basic-skills/tree/)
-        - [AVL](/basic-skills/tree/avl.md)
-        - [BST](/basic-skills/tree/bst.md)
-        - [显示树](/basic-skills/tree/display.md)
-        - [显示树 2](/basic-skills/tree/display2.md)
-        - [BinaryTreeNode](/basic-skills/tree/tree-node.md)
-        - [字典树](/basic-skills/tree/trie.md)
-- [编程语言的学习](/language/)
-    - [ES6](/language/ES6/)
-        - [Class](/language/ES6/class.md)
-- [Things](/things/)
-    - [配置中心](/things/configure-center/)
-    - [Express + Socket](/things/express-with-socket/)
-    - [Git](/things/git/)
-    - [GRPC](/things/grpc/)
-    - [node 包管理](/things/node-packages/)
-        - [常见 npm 包](/things/node-packages/frequent-package.md)
-        - [包机制在工程化中使用场景](/things/node-packages/within-scaffold.md)
-    - [Portal Wifi](/things/portal-wifi/)
-        - [微信连 wifi](/things/portal-wifi/wechat.md)
-    - [Specs](/things/specs/)
-- [Vue Skill](/vue-skill/)
-    - [Directives](/vue-skill/directives/)
-    - [函数式组件](/vue-skill/functional/)
-        - [模糊的小目标 所需基本功能·第一](/vue-skill/functional/v-m-1.md)
-        - [模糊的小目标 基本功能拓展·第二](/vue-skill/functional/v-m-2.md)
-    - [Vue 组件 v-model 场景](/vue-skill/v-model/)
-        - [Plain](/vue-skill/v-model/1-plain.md)
+<!-- 自动生成 -->
