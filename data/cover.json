@@ -4,7 +4,7 @@
     "title": "文档",
     "href": "/"
   },
-  "sumlen": 43,
+  "value": 44,
   "children": [
     {
       "__type__": "FOLDER",
@@ -12,7 +12,7 @@
         "title": "Vue Skill",
         "href": "/vue-skill/"
       },
-      "sumlen": 5,
+      "value": 6,
       "children": [
         {
           "__type__": "FOLDER",
@@ -20,11 +20,12 @@
             "title": "Vue 组件 v-model 场景",
             "href": "/vue-skill/v-model/"
           },
-          "sumlen": 1,
+          "value": 2,
           "children": [
             {
               "title": "Plain",
-              "href": "/vue-skill/v-model/1-plain"
+              "href": "/vue-skill/v-model/1-plain",
+              "value": 1
             }
           ]
         },
@@ -34,15 +35,17 @@
             "title": "函数式组件",
             "href": "/vue-skill/functional/"
           },
-          "sumlen": 2,
+          "value": 3,
           "children": [
             {
               "title": "模糊的小目标 所需基本功能·第一",
-              "href": "/vue-skill/functional/v-m-1"
+              "href": "/vue-skill/functional/v-m-1",
+              "value": 1
             },
             {
               "title": "模糊的小目标 基本功能拓展·第二",
-              "href": "/vue-skill/functional/v-m-2"
+              "href": "/vue-skill/functional/v-m-2",
+              "value": 1
             }
           ]
         }
@@ -54,7 +57,7 @@
         "title": "Things",
         "href": "/things/"
       },
-      "sumlen": 10,
+      "value": 11,
       "children": [
         {
           "__type__": "FOLDER",
@@ -62,7 +65,7 @@
             "title": "Specs",
             "href": "/things/specs/"
           },
-          "sumlen": 0,
+          "value": 1,
           "children": []
         },
         {
@@ -71,11 +74,12 @@
             "title": "Portal Wifi",
             "href": "/things/portal-wifi/"
           },
-          "sumlen": 1,
+          "value": 2,
           "children": [
             {
               "title": "微信连 wifi",
-              "href": "/things/portal-wifi/wechat"
+              "href": "/things/portal-wifi/wechat",
+              "value": 1
             }
           ]
         },
@@ -85,15 +89,17 @@
             "title": "node 包管理",
             "href": "/things/node-packages/"
           },
-          "sumlen": 2,
+          "value": 3,
           "children": [
             {
               "title": "常见 npm 包",
-              "href": "/things/node-packages/frequent-package"
+              "href": "/things/node-packages/frequent-package",
+              "value": 1
             },
             {
               "title": "包机制在工程化中使用场景",
-              "href": "/things/node-packages/within-scaffold"
+              "href": "/things/node-packages/within-scaffold",
+              "value": 1
             }
           ]
         },
@@ -103,7 +109,7 @@
             "title": "GRPC",
             "href": "/things/grpc/"
           },
-          "sumlen": 0,
+          "value": 1,
           "children": []
         },
         {
@@ -112,7 +118,7 @@
             "title": "Git",
             "href": "/things/git/"
           },
-          "sumlen": 0,
+          "value": 1,
           "children": []
         },
         {
@@ -121,7 +127,7 @@
             "title": "Express + Socket",
             "href": "/things/express-with-socket/"
           },
-          "sumlen": 0,
+          "value": 1,
           "children": []
         },
         {
@@ -130,7 +136,7 @@
             "title": "配置中心",
             "href": "/things/configure-center/"
           },
-          "sumlen": 0,
+          "value": 1,
           "children": []
         }
       ]
@@ -141,7 +147,7 @@
         "title": "编程语言的学习",
         "href": "/language/"
       },
-      "sumlen": 2,
+      "value": 3,
       "children": [
         {
           "__type__": "FOLDER",
@@ -149,11 +155,12 @@
             "title": "ES6",
             "href": "/language/ES6/"
           },
-          "sumlen": 1,
+          "value": 2,
           "children": [
             {
               "title": "Class",
-              "href": "/language/ES6/class"
+              "href": "/language/ES6/class",
+              "value": 1
             }
           ]
         }
@@ -165,7 +172,7 @@
         "title": "基本技能",
         "href": "/basic-skills/"
       },
-      "sumlen": 19,
+      "value": 20,
       "children": [
         {
           "__type__": "FOLDER",
@@ -173,31 +180,37 @@
             "title": "树",
             "href": "/basic-skills/tree/"
           },
-          "sumlen": 6,
+          "value": 7,
           "children": [
             {
               "title": "AVL",
-              "href": "/basic-skills/tree/avl"
+              "href": "/basic-skills/tree/avl",
+              "value": 1
             },
             {
               "title": "BST",
-              "href": "/basic-skills/tree/bst"
+              "href": "/basic-skills/tree/bst",
+              "value": 1
             },
             {
               "title": "显示树",
-              "href": "/basic-skills/tree/display"
+              "href": "/basic-skills/tree/display",
+              "value": 1
             },
             {
               "title": "显示树 2",
-              "href": "/basic-skills/tree/display2"
+              "href": "/basic-skills/tree/display2",
+              "value": 1
             },
             {
               "title": "BinaryTreeNode",
-              "href": "/basic-skills/tree/tree-node"
+              "href": "/basic-skills/tree/tree-node",
+              "value": 1
             },
             {
               "title": "字典树",
-              "href": "/basic-skills/tree/trie"
+              "href": "/basic-skills/tree/trie",
+              "value": 1
             }
           ]
         },
@@ -207,11 +220,12 @@
             "title": "栈",
             "href": "/basic-skills/stack/"
           },
-          "sumlen": 1,
+          "value": 2,
           "children": [
             {
               "title": "O(1) 取最小值",
-              "href": "/basic-skills/stack/min-stack"
+              "href": "/basic-skills/stack/min-stack",
+              "value": 1
             }
           ]
         },
@@ -221,11 +235,12 @@
             "title": "队列",
             "href": "/basic-skills/queue/"
           },
-          "sumlen": 1,
+          "value": 2,
           "children": [
             {
               "title": "优先队列",
-              "href": "/basic-skills/queue/priority-queue"
+              "href": "/basic-skills/queue/priority-queue",
+              "value": 1
             }
           ]
         },
@@ -235,35 +250,42 @@
             "title": "堆",
             "href": "/basic-skills/heap/"
           },
-          "sumlen": 7,
+          "value": 8,
           "children": [
             {
               "title": "最小堆 (动画)",
-              "href": "/basic-skills/heap/animated"
+              "href": "/basic-skills/heap/animated",
+              "value": 1
             },
             {
               "title": "二项式堆",
-              "href": "/basic-skills/heap/binomial"
+              "href": "/basic-skills/heap/binomial",
+              "value": 1
             },
             {
               "title": "----",
-              "href": "/basic-skills/heap/divider"
+              "href": "/basic-skills/heap/divider",
+              "value": 1
             },
             {
               "title": "草稿",
-              "href": "/basic-skills/heap/draft"
+              "href": "/basic-skills/heap/draft",
+              "value": 1
             },
             {
               "title": "观察索引",
-              "href": "/basic-skills/heap/init"
+              "href": "/basic-skills/heap/init",
+              "value": 1
             },
             {
               "title": "排序 (动画)",
-              "href": "/basic-skills/heap/sort-animated"
+              "href": "/basic-skills/heap/sort-animated",
+              "value": 1
             },
             {
               "title": "排序",
-              "href": "/basic-skills/heap/sort"
+              "href": "/basic-skills/heap/sort",
+              "value": 1
             }
           ]
         }
@@ -275,7 +297,7 @@
         "title": "活动",
         "href": "/activity/"
       },
-      "sumlen": 2,
+      "value": 3,
       "children": [
         {
           "__type__": "FOLDER",
@@ -283,7 +305,7 @@
             "title": "Time Flies",
             "href": "/activity/time-flies/"
           },
-          "sumlen": 0,
+          "value": 1,
           "children": []
         },
         {
@@ -292,7 +314,7 @@
             "title": "新知道",
             "href": "/activity/new-know/"
           },
-          "sumlen": 0,
+          "value": 1,
           "children": []
         }
       ]

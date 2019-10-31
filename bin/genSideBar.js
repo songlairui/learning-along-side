@@ -46,7 +46,7 @@ function grabDir(dir = targetFolder, depth = 0, parent = {}) {
   const folderMeta = {
     __type__: 'FOLDER',
     cover: null,
-    sumlen: null,
+    value: null,
     children: []
   }
   // folderMeta.parent = parent
@@ -99,11 +99,11 @@ function calcChildren(meta) {
     const itemLength = calcChildren(item)
     return sum + itemLength
   }, 0)
-  const sumlen = (meta.children ? meta.children.length : 0) + subLengths
-  if (meta.children) {
-    meta.sumlen = sumlen
-  }
-  return sumlen
+  const value = (meta.children ? meta.children.length : 0) + subLengths
+
+  meta.value = Math.max(1, value + 1) * 1
+
+  return value
 }
 
 const genMeta = function() {

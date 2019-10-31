@@ -1,36 +1,45 @@
 <template>
-  <div v-if="meta.__type__ !== 'FOLDER'">
+  <div class="endPoint" v-if="meta.__type__ !== 'FOLDER'">
     <h6 @click="debug">{{meta.title}}</h6>
   </div>
   <div v-else>
-    <template v-if="meta.cover">
-      <h4 @click="debug">{{meta.cover.title}}</h4>
-    </template>
     <grid-layout
-      v-if="meta.children && meta.children.length"
       class="nest-border"
-      :layout="layout"
-      @layout-updated="update"
-      :col-num="12"
-      :row-height="30"
+      :layout.sync="layout"
+      :col-num="colNums"
+      :row-height="rowHeight"
       :is-draggable="true"
       :is-resizable="true"
       :is-mirrored="false"
       :vertical-compact="true"
-      :margin="[10, 10]"
+      :margin="margin"
       :use-css-transforms="true"
-      ref="vgl"
+      :auto-size="true"
+      :verticalCompact="false"
     >
+      <grid-item class="info-card" v-bind="coverItemProps" v-if="meta.cover" :static="true">
+        <div class="endPoint">
+          <h4 @click="debug">{{meta.cover.title}}</h4>
+        </div>
+      </grid-item>
       <grid-item
         class="info-card"
-        v-for="(item,idx) in meta.children"
-        :x="layout[idx].x"
-        :y="layout[idx].y"
-        :w="layout[idx].w"
-        :h="layout[idx].h"
-        :i="layout[idx].i"
+        v-for="(item,idx) in layout.slice(1)"
+        :x="item.x"
+        :y="item.y"
+        :w="item.w"
+        :h="item.h"
+        :i="item.i"
       >
-        <EntryItem :key="idx" :meta="item" :depth="depth+1" @updateH="updateSelfItem" />
+        <EntryItem
+          :key="item.i"
+          :meta="meta.children[idx]"
+          :depth="depth+1"
+          :availableH="item.h"
+          :availableW="item.w"
+          :rowHeight="rowHeight"
+          ref="sub"
+        />
       </grid-item>
     </grid-layout>
   </div>
@@ -40,7 +49,7 @@ import VueGridLayout from 'vue-grid-layout'
 import { charkXY } from './utils'
 import squarify from 'squarify'
 
-// const container = { x0: 0, y0: 0, x1: 36, y1: 20 }
+const wait = (time = 50) => new Promise(r => setTimeout(r, time))
 
 export default {
   name: 'EntryItem',
@@ -57,53 +66,96 @@ export default {
     depth: {
       type: Number,
       default: 0
+    },
+    availableH: {
+      type: Number,
+      default: 20
+    },
+    availableW: {
+      type: Number,
+      default: 36
+    },
+    rowHeight: {
+      type: Number,
+      default: 30
     }
   },
   data() {
     return {
-      tmplayout: []
+      layout: (this.meta.children || []).map((item, i) => ({
+        x: 0,
+        y: i,
+        w: 1,
+        h: 1,
+        i
+      })),
+      margin: [0, 0]
     }
   },
   computed: {
-    colNum() {
-      return colNums[this.depth] || 4
+    colNums() {
+      return Math.max(4, this.availableW)
     },
-    metaType() {
-      return Array.isArray(this.meta) ? 'array' : typeof this.meta
+    coverItemProps() {
+      return {
+        x: 0,
+        y: 0,
+        w: this.colNums,
+        h: 1,
+        i: 0
+      }
     },
-    subWidth() {
-      return Math.ceil(Math.sqrt((this.meta.children || []).length)) || 1
+    deltaY() {
+      return this.meta.cover ? 1 : 0
     },
-    subCols() {
-      return Math.floor(12 / (this.subWidth || 1))
+    availableY1() {
+      return Math.max(1, this.availableH - this.deltaY)
     },
-    initLayout() {
-      return (this.meta.children || []).map((_, i) => {
-        let h = 1
-        if (_.children) {
-          h += 1 * Math.ceil(Math.sqrt(_.children.length))
-        }
-        const w = this.subCols
-        const { x, y } = charkXY(i, this.subWidth || 1)
-        return {
-          x: x * w,
-          y: y * h,
-          w,
-          h,
-          i
-        }
+    container() {
+      const x0 = 0
+      const y0 = 0
+      const x1 = Math.max(4, this.availableW)
+      const y1 = this.availableY1
+
+      return { x0, y0, x1, y1 }
+    },
+    closestChildren() {
+      return (this.meta.children || []).map(item => {
+        const tmpItem = { ...item }
+        delete tmpItem.children
+        return tmpItem
       })
     },
-    layout: {
-      get() {
-        return this.tmplayout.length ? this.tmplayout : this.initLayout
-      },
-      set(val) {
-        this.tmplayout = val
-      }
+    output() {
+      return squarify(this.closestChildren, this.container).map((item, i) => {
+        let { x0, y0, x1, y1 } = item
+        x0 = Math.round(x0)
+        x1 = Math.round(x1)
+        y0 = Math.round(y0)
+        y1 = Math.round(y1)
+        const w = Math.max(1, x1 - x0)
+        const h = item.value === 1 ? 1 : Math.max(1, y1 - y0)
+        return { x: x0, y: y0 + this.deltaY, w, h, i: i + 1 }
+      })
     }
   },
+
   methods: {
+    sync() {
+      this.layout = JSON.parse(
+        JSON.stringify(
+          this.meta.cover ? [this.coverItemProps, ...this.output] : this.output
+        )
+      )
+    },
+    async syncWithSub() {
+      this.sync()
+      await wait()
+      const { sub = [] } = this.$refs
+      sub.forEach(async item => {
+        item.syncWithSub()
+      })
+    },
     debug() {
       console.info(this)
     },
@@ -111,6 +163,11 @@ export default {
     updateSelfItem() {},
     update(e) {
       this.tmplayout = e
+    }
+  },
+  mounted() {
+    if (this.root) {
+      // this.syncWithSub()
     }
   }
 }
@@ -129,6 +186,12 @@ h4,
 h6 {
   overflow: hidden;
   margin: 0;
+}
+.endPoint {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 h4 {
   text-align: center;
