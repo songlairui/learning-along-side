@@ -21,7 +21,7 @@ module.exports = {
   head: [['meta', { name: 'theme-color', content: '#3eaf7c' }]],
   themeConfig: {
     repo: 'songlairui/learning-along-side',
-    docsDir: 'docs',
+    docsDir: 'doc',
     editLinks: true,
     locales: {
       '/': {
