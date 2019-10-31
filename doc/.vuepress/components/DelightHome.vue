@@ -1,5 +1,6 @@
 <template>
   <div class="__home__">
+    <div class="__nav__">songlairui</div>
     <component
       v-if="dynamicComponent"
       :is="dynamicComponent"
@@ -11,7 +12,6 @@
       :availableW="availableW"
     ></component>
     <div v-else></div>
-    <div class="__nav__">songlairui</div>
   </div>
 </template>
 <script>
@@ -50,7 +50,7 @@ export default {
 .__home__ {
   height: 100%;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   .__nav__ {
     flex: 1;
     display: flex;

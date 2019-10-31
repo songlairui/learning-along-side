@@ -17,7 +17,7 @@
       :margin="margin"
       :use-css-transforms="true"
       :auto-size="true"
-      :verticalCompact="false"
+      :verticalCompact="true"
     >
       <grid-item class="info-card" v-bind="coverItemProps" v-if="hasCover" :static="true">
         <div class="endPoint">
