@@ -5,21 +5,9 @@ const targetFolder = path.resolve(__dirname, '../doc')
 
 const ignore = ['assets', '.vuepress']
 
-const AllMeta = []
-const AllMetaNested = []
-
-function repeatStr(str, times) {
-  return Array.from({ length: times })
-    .fill(str)
-    .join('')
-}
-
 function grabMdFileMeta(file, dir, depth) {
-  let __type__
   if (!file.endsWith('README.md')) {
     depth += 1
-  } else {
-    __type__ = 'README'
   }
   const raw = fs
     .readFileSync(file)
@@ -36,83 +24,92 @@ function grabMdFileMeta(file, dir, depth) {
     }
     titleLine++
   }
+
+  const href = `/${path
+    .relative(targetFolder, file)
+    .replace(/(README)?\.md$/, '')}`
+
   const title =
     (raw[titleLine] || '')
       .trim()
       .replace(/^#/, '')
-      .trim() || file
-  const abPath = path.relative(targetFolder, file).replace(/README.md$/, '')
+      .trim() || href
+
   return {
-    __type__,
-    file,
     title,
-    abPath,
-    parent: `/${path.relative(targetFolder, dir)}`,
-    text: `${repeatStr('    ', depth - 1)}- [${title}](/${abPath})`
+    href
   }
 }
 
-function grabDir(dir = targetFolder, depth = 0, parent = []) {
+function grabDir(dir = targetFolder, depth = 0, parent = {}) {
   const children = fs.readdirSync(dir)
-  const folderMeta = []
-  folderMeta.parent = parent
-  if (!parent[0]) {
-    parent[0] = [{ __type__: 'README', children: [] }]
+  const folderMeta = {
+    __type__: 'FOLDER',
+    cover: null,
+    sumlen: null,
+    children: []
   }
-  if (parent[0].__type__ !== 'README') {
-    parent.unshift({ __type__: 'README', children: [] })
+  // folderMeta.parent = parent
+  if (parent) {
+    if (!parent.children) {
+      parent.children = []
+    }
+    parent.children.unshift(folderMeta)
   }
-  if (!parent[0].children) {
-    parent[0].children = []
-  }
-  parent[0].children.push(folderMeta)
 
+  let cover
   const folders = []
   const files = []
   children.forEach(file => {
     if (ignore.includes(file)) return
-    const nextFolder = path.resolve(dir, file)
+    const subFolder = path.resolve(dir, file)
     if (file.toLowerCase() === 'readme.md') {
-      files.unshift(nextFolder)
+      cover = subFolder
       return
     }
     if (file.endsWith('.md')) {
-      files.push(nextFolder)
+      files.push(subFolder)
       return
     }
-    if (!fs.statSync(nextFolder).isDirectory()) {
+    if (!fs.statSync(subFolder).isDirectory()) {
       return
     }
-    folders.push(nextFolder)
+    folders.push(subFolder)
   })
+
+  if (cover) {
+    folderMeta.cover = grabMdFileMeta(cover, dir, depth)
+  }
   // files first
   files.forEach(file => {
     const meta = grabMdFileMeta(file, dir, depth)
-    folderMeta.push(meta)
+    folderMeta.children.push(meta)
   })
-  AllMeta.push(...folderMeta)
-  AllMetaNested.push(folderMeta)
 
   // folder then
   folders.forEach(folder => {
     grabDir(folder, depth + 1, folderMeta)
   })
+
+  return folderMeta
 }
 
-function genMeta() {
-  AllMeta.length = 0
-  grabDir()
-  AllMeta.__nested__ = AllMetaNested[0]
-  return AllMeta
+function calcChildren(meta) {
+  const subLengths = (meta.children || []).reduce((sum, item) => {
+    const itemLength = calcChildren(item)
+    return sum + itemLength
+  }, 0)
+  const sumlen = (meta.children ? meta.children.length : 0) + subLengths
+  if (meta.children) {
+    meta.sumlen = sumlen
+  }
+  return sumlen
+}
+
+const genMeta = function() {
+  const meta = grabDir()
+  calcChildren(meta)
+  return meta
 }
 
 module.exports = { genMeta }
-
-// grabDir();
-
-// console.info(
-//   'AllMeta \n',
-//   AllMeta.slice(1)
-//     .map((item) => item.text)
-//     .join('\n')
-// );

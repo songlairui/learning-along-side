@@ -1,0 +1,301 @@
+{
+  "__type__": "FOLDER",
+  "cover": {
+    "title": "文档",
+    "href": "/"
+  },
+  "sumlen": 43,
+  "children": [
+    {
+      "__type__": "FOLDER",
+      "cover": {
+        "title": "Vue Skill",
+        "href": "/vue-skill/"
+      },
+      "sumlen": 5,
+      "children": [
+        {
+          "__type__": "FOLDER",
+          "cover": {
+            "title": "Vue 组件 v-model 场景",
+            "href": "/vue-skill/v-model/"
+          },
+          "sumlen": 1,
+          "children": [
+            {
+              "title": "Plain",
+              "href": "/vue-skill/v-model/1-plain"
+            }
+          ]
+        },
+        {
+          "__type__": "FOLDER",
+          "cover": {
+            "title": "函数式组件",
+            "href": "/vue-skill/functional/"
+          },
+          "sumlen": 2,
+          "children": [
+            {
+              "title": "模糊的小目标 所需基本功能·第一",
+              "href": "/vue-skill/functional/v-m-1"
+            },
+            {
+              "title": "模糊的小目标 基本功能拓展·第二",
+              "href": "/vue-skill/functional/v-m-2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__type__": "FOLDER",
+      "cover": {
+        "title": "Things",
+        "href": "/things/"
+      },
+      "sumlen": 10,
+      "children": [
+        {
+          "__type__": "FOLDER",
+          "cover": {
+            "title": "Specs",
+            "href": "/things/specs/"
+          },
+          "sumlen": 0,
+          "children": []
+        },
+        {
+          "__type__": "FOLDER",
+          "cover": {
+            "title": "Portal Wifi",
+            "href": "/things/portal-wifi/"
+          },
+          "sumlen": 1,
+          "children": [
+            {
+              "title": "微信连 wifi",
+              "href": "/things/portal-wifi/wechat"
+            }
+          ]
+        },
+        {
+          "__type__": "FOLDER",
+          "cover": {
+            "title": "node 包管理",
+            "href": "/things/node-packages/"
+          },
+          "sumlen": 2,
+          "children": [
+            {
+              "title": "常见 npm 包",
+              "href": "/things/node-packages/frequent-package"
+            },
+            {
+              "title": "包机制在工程化中使用场景",
+              "href": "/things/node-packages/within-scaffold"
+            }
+          ]
+        },
+        {
+          "__type__": "FOLDER",
+          "cover": {
+            "title": "GRPC",
+            "href": "/things/grpc/"
+          },
+          "sumlen": 0,
+          "children": []
+        },
+        {
+          "__type__": "FOLDER",
+          "cover": {
+            "title": "Git",
+            "href": "/things/git/"
+          },
+          "sumlen": 0,
+          "children": []
+        },
+        {
+          "__type__": "FOLDER",
+          "cover": {
+            "title": "Express + Socket",
+            "href": "/things/express-with-socket/"
+          },
+          "sumlen": 0,
+          "children": []
+        },
+        {
+          "__type__": "FOLDER",
+          "cover": {
+            "title": "配置中心",
+            "href": "/things/configure-center/"
+          },
+          "sumlen": 0,
+          "children": []
+        }
+      ]
+    },
+    {
+      "__type__": "FOLDER",
+      "cover": {
+        "title": "编程语言的学习",
+        "href": "/language/"
+      },
+      "sumlen": 2,
+      "children": [
+        {
+          "__type__": "FOLDER",
+          "cover": {
+            "title": "ES6",
+            "href": "/language/ES6/"
+          },
+          "sumlen": 1,
+          "children": [
+            {
+              "title": "Class",
+              "href": "/language/ES6/class"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__type__": "FOLDER",
+      "cover": {
+        "title": "基本技能",
+        "href": "/basic-skills/"
+      },
+      "sumlen": 19,
+      "children": [
+        {
+          "__type__": "FOLDER",
+          "cover": {
+            "title": "树",
+            "href": "/basic-skills/tree/"
+          },
+          "sumlen": 6,
+          "children": [
+            {
+              "title": "AVL",
+              "href": "/basic-skills/tree/avl"
+            },
+            {
+              "title": "BST",
+              "href": "/basic-skills/tree/bst"
+            },
+            {
+              "title": "显示树",
+              "href": "/basic-skills/tree/display"
+            },
+            {
+              "title": "显示树 2",
+              "href": "/basic-skills/tree/display2"
+            },
+            {
+              "title": "BinaryTreeNode",
+              "href": "/basic-skills/tree/tree-node"
+            },
+            {
+              "title": "字典树",
+              "href": "/basic-skills/tree/trie"
+            }
+          ]
+        },
+        {
+          "__type__": "FOLDER",
+          "cover": {
+            "title": "栈",
+            "href": "/basic-skills/stack/"
+          },
+          "sumlen": 1,
+          "children": [
+            {
+              "title": "O(1) 取最小值",
+              "href": "/basic-skills/stack/min-stack"
+            }
+          ]
+        },
+        {
+          "__type__": "FOLDER",
+          "cover": {
+            "title": "队列",
+            "href": "/basic-skills/queue/"
+          },
+          "sumlen": 1,
+          "children": [
+            {
+              "title": "优先队列",
+              "href": "/basic-skills/queue/priority-queue"
+            }
+          ]
+        },
+        {
+          "__type__": "FOLDER",
+          "cover": {
+            "title": "堆",
+            "href": "/basic-skills/heap/"
+          },
+          "sumlen": 7,
+          "children": [
+            {
+              "title": "最小堆 (动画)",
+              "href": "/basic-skills/heap/animated"
+            },
+            {
+              "title": "二项式堆",
+              "href": "/basic-skills/heap/binomial"
+            },
+            {
+              "title": "----",
+              "href": "/basic-skills/heap/divider"
+            },
+            {
+              "title": "草稿",
+              "href": "/basic-skills/heap/draft"
+            },
+            {
+              "title": "观察索引",
+              "href": "/basic-skills/heap/init"
+            },
+            {
+              "title": "排序 (动画)",
+              "href": "/basic-skills/heap/sort-animated"
+            },
+            {
+              "title": "排序",
+              "href": "/basic-skills/heap/sort"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__type__": "FOLDER",
+      "cover": {
+        "title": "活动",
+        "href": "/activity/"
+      },
+      "sumlen": 2,
+      "children": [
+        {
+          "__type__": "FOLDER",
+          "cover": {
+            "title": "Time Flies",
+            "href": "/activity/time-flies/"
+          },
+          "sumlen": 0,
+          "children": []
+        },
+        {
+          "__type__": "FOLDER",
+          "cover": {
+            "title": "新知道",
+            "href": "/activity/new-know/"
+          },
+          "sumlen": 0,
+          "children": []
+        }
+      ]
+    }
+  ]
+}
