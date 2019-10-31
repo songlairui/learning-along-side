@@ -17,14 +17,14 @@
       :auto-size="true"
       :verticalCompact="false"
     >
-      <grid-item class="info-card" v-bind="coverItemProps" v-if="meta.cover" :static="true">
+      <grid-item class="info-card" v-bind="coverItemProps" v-if="hasCover" :static="true">
         <div class="endPoint">
           <h4 @click="debug">{{meta.cover.title}}</h4>
         </div>
       </grid-item>
       <grid-item
         class="info-card"
-        v-for="(item,idx) in layout.slice(1)"
+        v-for="(item,idx) in hasCover ? layout.slice(1) : layout"
         :x="item.x"
         :y="item.y"
         :w="item.w"
@@ -46,10 +46,8 @@
 </template>
 <script>
 import VueGridLayout from 'vue-grid-layout'
-import { charkXY } from './utils'
+import { charkXY, wait } from './utils'
 import squarify from 'squarify'
-
-const wait = (time = 50) => new Promise(r => setTimeout(r, time))
 
 export default {
   name: 'EntryItem',
@@ -93,6 +91,9 @@ export default {
     }
   },
   computed: {
+    hasCover() {
+      return !this.root && !!this.meta.cover
+    },
     colNums() {
       return Math.max(4, this.availableW)
     },
@@ -106,7 +107,7 @@ export default {
       }
     },
     deltaY() {
-      return this.meta.cover ? 1 : 0
+      return this.hasCover ? 1 : 0
     },
     availableY1() {
       return Math.max(1, this.availableH - this.deltaY)
@@ -144,7 +145,7 @@ export default {
     sync() {
       this.layout = JSON.parse(
         JSON.stringify(
-          this.meta.cover ? [this.coverItemProps, ...this.output] : this.output
+          this.hasCover ? [this.coverItemProps, ...this.output] : this.output
         )
       )
     },
@@ -158,11 +159,6 @@ export default {
     },
     debug() {
       console.info(this)
-    },
-    expand() {},
-    updateSelfItem() {},
-    update(e) {
-      this.tmplayout = e
     }
   },
   mounted() {
