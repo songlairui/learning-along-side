@@ -1,6 +1,8 @@
 <template>
   <div class="endPoint" v-if="meta.__type__ !== 'FOLDER'">
-    <h6 @click="debug">{{meta.title}}</h6>
+    <router-link :to="meta.href">
+      <h6>{{meta.title}}</h6>
+    </router-link>
   </div>
   <div v-else>
     <grid-layout
@@ -19,7 +21,9 @@
     >
       <grid-item class="info-card" v-bind="coverItemProps" v-if="hasCover" :static="true">
         <div class="endPoint">
-          <h4 @click="debug">{{meta.cover.title}}</h4>
+          <router-link :to="meta.cover.href">
+            <h4>{{meta.cover.title}}</h4>
+          </router-link>
         </div>
       </grid-item>
       <grid-item
@@ -30,6 +34,7 @@
         :w="item.w"
         :h="item.h"
         :i="item.i"
+        :static="true"
       >
         <EntryItem
           :key="item.i"
