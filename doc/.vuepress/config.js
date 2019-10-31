@@ -8,7 +8,7 @@ module.exports = {
     extendMarkdown,
     lineNumbers: true
   },
-  base: '/learning-along-side/',
+  // base: '',
   dest: path.resolve(__dirname, '../../dist'),
   locales: {
     '/': {
