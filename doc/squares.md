@@ -1,9 +1,7 @@
 ---
-layout: NormalHome
+layout: DelightHome
 ---
 
 # 文档
 
 <!-- 自动生成 -->
-
-[SQUARES](./squares)
