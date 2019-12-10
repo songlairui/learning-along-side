@@ -4,7 +4,7 @@
     "title": "文档",
     "href": "/"
   },
-  "value": 44,
+  "value": 58,
   "children": [
     {
       "__type__": "FOLDER",
@@ -57,7 +57,7 @@
         "title": "Things",
         "href": "/things/"
       },
-      "value": 11,
+      "value": 14,
       "children": [
         {
           "__type__": "FOLDER",
@@ -106,6 +106,30 @@
         {
           "__type__": "FOLDER",
           "cover": {
+            "title": "HEADLESS CMS",
+            "href": "/things/headless-cms/"
+          },
+          "value": 3,
+          "children": [
+            {
+              "__type__": "FOLDER",
+              "cover": {
+                "title": "个人信息分类",
+                "href": "/things/headless-cms/self-classification/"
+              },
+              "value": 1,
+              "children": []
+            },
+            {
+              "title": "Strapi",
+              "href": "/things/headless-cms/strapi",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "__type__": "FOLDER",
+          "cover": {
             "title": "GRPC",
             "href": "/things/grpc/"
           },
@@ -144,6 +168,36 @@
     {
       "__type__": "FOLDER",
       "cover": {
+        "title": "/readings/",
+        "href": "/readings/"
+      },
+      "value": 2,
+      "children": [
+        {
+          "title": "o's book",
+          "href": "/readings/draft",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "__type__": "FOLDER",
+      "cover": {
+        "title": "/question/",
+        "href": "/question/"
+      },
+      "value": 2,
+      "children": [
+        {
+          "title": "Required",
+          "href": "/question/restart-required",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "__type__": "FOLDER",
+      "cover": {
         "title": "编程语言的学习",
         "href": "/language/"
       },
@@ -172,7 +226,7 @@
         "title": "基本技能",
         "href": "/basic-skills/"
       },
-      "value": 20,
+      "value": 22,
       "children": [
         {
           "__type__": "FOLDER",
@@ -246,6 +300,12 @@
         },
         {
           "__type__": "FOLDER",
+          "cover": null,
+          "value": 1,
+          "children": []
+        },
+        {
+          "__type__": "FOLDER",
           "cover": {
             "title": "堆",
             "href": "/basic-skills/heap/"
@@ -288,6 +348,15 @@
               "value": 1
             }
           ]
+        },
+        {
+          "__type__": "FOLDER",
+          "cover": {
+            "title": "FlowChart",
+            "href": "/basic-skills/flowchart/"
+          },
+          "value": 1,
+          "children": []
         }
       ]
     },
@@ -297,7 +366,7 @@
         "title": "活动",
         "href": "/activity/"
       },
-      "value": 3,
+      "value": 6,
       "children": [
         {
           "__type__": "FOLDER",
@@ -316,6 +385,35 @@
           },
           "value": 1,
           "children": []
+        },
+        {
+          "__type__": "FOLDER",
+          "cover": null,
+          "value": 3,
+          "children": [
+            {
+              "title": "Manage the day",
+              "href": "/activity/manage-everything/day",
+              "value": 1
+            },
+            {
+              "title": "Manage This Project",
+              "href": "/activity/manage-everything/self",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "__type__": "FOLDER",
+      "cover": null,
+      "value": 2,
+      "children": [
+        {
+          "title": "Gridsome",
+          "href": "/acknowledge/gridsome",
+          "value": 1
         }
       ]
     }

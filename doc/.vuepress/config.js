@@ -54,7 +54,20 @@ module.exports = {
         componentsDir
       }
     ],
-    ['@vuepress/nprogress']
+    ['@vuepress/nprogress'],
+    [
+      '@vssue/vuepress-plugin-vssue',
+      {
+        platform: 'github',
+
+        owner: 'songlairui',
+        repo: 'https://github.com/songlairui/learning-along-side',
+        clientId: '65c3f006e1b4a04d624e',
+        clientSecret: '25a503d52dbd31ddd7cde927cdf75195ecb5408b'
+      }
+    ],
+    ['flowchart'],
+    ['element-tabs']
   ],
   clientRootMixin: path.resolve(__dirname, 'mixin.js'),
   chainWebpack(config) {

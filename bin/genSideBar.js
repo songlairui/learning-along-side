@@ -16,7 +16,7 @@ function grabMdFileMeta(file, dir, depth) {
     .map(line => line.trim())
     .filter(line => line)
   let titleLine = 0
-  if (raw[0].startsWith('---')) {
+  if (raw[0] && raw[0].startsWith('---')) {
     let reachMatterEnd = false
     while (!reachMatterEnd) {
       titleLine++

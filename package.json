@@ -7,7 +7,7 @@
     "deploy": "sh bin/deploy.sh",
     "dev": "vuepress dev doc",
     "build": "vuepress build doc",
-    "cover": "node bin/genCover.js",
+    "cover": "node bin/genCoverMeta.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "meta": "node bin/genCoverMeta.js"
   },
@@ -15,6 +15,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@vssue/api-github-v3": "^1.1.2",
+    "@vssue/vuepress-plugin-vssue": "^1.2.2",
     "gql-loader": "^1.0.0",
     "graphql": "^14.5.8",
     "graphql-import-loader": "^0.2.1",
@@ -32,6 +34,7 @@
     "@vuepress/plugin-pagination": "^1.0.0-alpha.48",
     "@vuepress/plugin-pwa": "^1.2.0",
     "@vuepress/plugin-register-components": "^1.2.0",
-    "vuepress": "next"
+    "vuepress": "next",
+    "vuepress-plugin-flowchart": "^1.4.3"
   }
 }
