@@ -67,7 +67,54 @@ module.exports = {
       }
     ],
     ['flowchart'],
-    ['element-tabs']
+    [
+      'vuepress-plugin-container',
+      {
+        type: 'details',
+        before: info =>
+          `<details class="abstract"><summary class="title">${info}</summary>`,
+        after: '</details>'
+      }
+    ],
+    [
+      'vuepress-plugin-container',
+      {
+        type: 'row',
+        before: info => `<div class="row ${info}">`,
+        after: '</div>'
+      }
+    ],
+    [
+      'vuepress-plugin-container',
+      {
+        type: 'col',
+        before: info => `<div class="col ${info}">`,
+        after: '</div>'
+      }
+    ],
+    [
+      'vuepress-plugin-container',
+      {
+        type: 'max',
+        before: info => `<div class="max ${info}">`,
+        after: '</div>'
+      }
+    ],
+    [
+      'vuepress-plugin-container',
+      {
+        type: 'right',
+        defaultTitle: ''
+      }
+    ],
+    [
+      'vuepress-plugin-container',
+      {
+        type: 'theorem',
+        before: info => `<div class="theorem"><p class="title">${info}</p>`,
+        after: '</div>'
+      }
+    ]
   ],
   clientRootMixin: path.resolve(__dirname, 'mixin.js'),
   chainWebpack(config) {

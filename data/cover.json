@@ -4,7 +4,7 @@
     "title": "文档",
     "href": "/"
   },
-  "value": 58,
+  "value": 65,
   "children": [
     {
       "__type__": "FOLDER",
@@ -162,6 +162,26 @@
           },
           "value": 1,
           "children": []
+        }
+      ]
+    },
+    {
+      "__type__": "FOLDER",
+      "cover": {
+        "title": "Steps",
+        "href": "/steps/"
+      },
+      "value": 3,
+      "children": [
+        {
+          "title": "FlowChart Endless List",
+          "href": "/steps/1-flowchart-endless-list",
+          "value": 1
+        },
+        {
+          "title": "Headless API",
+          "href": "/steps/2-flowchart-common-headless-api",
+          "value": 1
         }
       ]
     },
@@ -408,11 +428,32 @@
     {
       "__type__": "FOLDER",
       "cover": null,
-      "value": 2,
+      "value": 6,
       "children": [
+        {
+          "__type__": "FOLDER",
+          "cover": null,
+          "value": 1,
+          "children": []
+        },
+        {
+          "title": "vuepress plugin flowchart",
+          "href": "/acknowledge/flowchart",
+          "value": 1
+        },
         {
           "title": "Gridsome",
           "href": "/acknowledge/gridsome",
+          "value": 1
+        },
+        {
+          "title": "Mermaid",
+          "href": "/acknowledge/mermaid",
+          "value": 1
+        },
+        {
+          "title": "Vuepress",
+          "href": "/acknowledge/vuepress",
           "value": 1
         }
       ]
